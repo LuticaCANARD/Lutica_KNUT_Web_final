@@ -33,8 +33,8 @@ app.use(express.Router());
 app.use(BodyParser.urlencoded({
 	extended: true
 }));
-const store_ =  MySQLStore(session);
-const store= new store_({
+const store_ = MySQLStore(session);
+const store = new store_({
 	createDatabaseTable: false,
 	schema: {
 		tableName: 'Session',
