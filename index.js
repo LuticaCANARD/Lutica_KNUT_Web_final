@@ -32,7 +32,8 @@ const session_setting = session({
 app.use(session_setting)
 app.use(passport.initialize());
 app.use(passport.session()); 
-app.get('/api/get',(req,res,next)=>{
+const base = process.env["netlify"] ? '/api/' : '/'
+app.get('/',(req,res,next)=>{
     res.send('hi');
 })
 
