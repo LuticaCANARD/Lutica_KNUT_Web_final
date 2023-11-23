@@ -4,8 +4,10 @@
   "description": "2017011이준영 웹프 기말과ㅓ제 배포용",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev" : "nodemon index.js"
   },
+  "type": "module",
   "author": "Lutica_canard",
   "license": "ISC",
   "dependencies": {
@@ -27,5 +29,10 @@
     "serverless-http": "^3.2.0",
     "socket.io": "^4.7.1",
     "socket.io-client": "^4.7.1"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.0"
   }
 }
