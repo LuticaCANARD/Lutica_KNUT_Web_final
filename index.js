@@ -31,7 +31,7 @@ const session_setting = session({
 app.use(session_setting)
 app.use(passport.initialize());
 app.use(passport.session()); 
-app.get('/',(req,res,next)=>{
+app.get('/api/get',(req,res,next)=>{
     res.send('hi');
 })
 
