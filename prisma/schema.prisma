@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+generator erd {
+  provider = "prisma-erd-generator-markdown"
+  output   = "./ERD.md"
+}
+generator erd_svg {
+  provider = "prisma-erd-generator"
+  output   = "./ERD.svg"
+}
+generator kysely {
+  provider     = "prisma-kysely"
+  // 타입이 생성될 디렉토리
+  output       = "../src/server/db"
+  // 타입이 생성될 파일명
+  fileName     = "types.ts"
+  // Optionally generate runtime enums to a separate file
+  enumFileName = "enums.ts"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  // 사용자 정보
+  id                Int                @id @default(autoincrement()) // 기본 키로 지정
+  loginId           String
+  pw                String
+  email             String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt // 업데이트 시 자동으로 현재 시간으로 갱신
+
+  @@map("USERS") //  DB의 USERS 테이블과 매핑
+}
