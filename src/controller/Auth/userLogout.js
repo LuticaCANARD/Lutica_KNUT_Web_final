@@ -4,7 +4,6 @@
  * @param {Response} res 
  * @param {NextFunction} next 
  */
-export const userRegister = async(req,res,next) =>{
-
-
+export const userLogout = async(req,res,next) =>{
+    
 };

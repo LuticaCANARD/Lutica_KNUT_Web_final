@@ -1,9 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// 안씀.
 generator client {
   provider = "prisma-client-js"
 }
+// 문서화용
 generator erd {
   provider = "prisma-erd-generator-markdown"
   output   = "./ERD.md"
@@ -13,26 +15,41 @@ generator erd_svg {
   output   = "./ERD.svg"
 }
 
+//DB컨택터.
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL_DEV")
   relationMode = "prisma"
 }
 
+//세션용
 model Session{
   sid String @id
   expire String
   data String
 }
 
+
 model User {
   // 사용자 정보
   id                Int                @id @default(autoincrement()) // 기본 키로 지정
   loginId           String
-  pw                String
+  password          String
   email             String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt // 업데이트 시 자동으로 현재 시간으로 갱신
+  posts Post[]
 
   @@map("USERS") //  DB의 USERS 테이블과 매핑
+}
+
+model Post{
+  id  Int  @id @default(autoincrement())
+  user User @relation(references: [id],fields:[userId])
+  userId Int // 작성자ID
+  imageLink String // 이미지파일 위치+이름+확장자
+  file String? // 받을수있는파일
+  desc String? // 글내용
+  location String? //서브정보
+  createdAt DateTime @default(now())
+  @@index([userId])
 }
