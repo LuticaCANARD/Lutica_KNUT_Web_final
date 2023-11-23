@@ -9,6 +9,9 @@ import passport from "passport";
 import MySQLStore from "express-mysql-session";
 import { db } from './src/utils/mysqldb.js';
 import fs from 'fs';
+import appRouter from './src/router.js';
+import passportConfig from './src/middleware/passport/index.js';
+passportConfig();
 dotenv.config(); //환경설정.
 
 try{
@@ -56,10 +59,8 @@ const session_option = {
 };
 app.use(session(session_option));
 app.use(passport.initialize());
-app.use(passport.session()); 
-app.get('/',(req,res,next)=>{
-	res.send('hi');
-});
+app.use(passport.session());
+app.use('/',appRouter);
 
 const server = createServer(app);
 server.listen(process.env["port"]||3000,()=>{

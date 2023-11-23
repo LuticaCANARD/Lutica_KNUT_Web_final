@@ -1,15 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Prisma에 관한 설명 : 
+// DB-스크립트 사이 어댑터
+// npx prisma generate 를 사용하면 관계도를 생성해주며,
+// npx prisma db push  를 사용하면 url로 연결된 db를 이 관계도로 바꿔준다.
+// 굳이 MySQL이 아니어도 Mongo, PostgreSQL도 가능하다.
+
 // 안씀.
 generator client {
   provider = "prisma-client-js"
 }
+
 // 문서화용
 generator erd {
   provider = "prisma-erd-generator-markdown"
   output   = "./ERD.md"
 }
+
 generator erd_svg {
   provider = "prisma-erd-generator"
   output   = "./ERD.svg"
@@ -23,33 +31,48 @@ datasource db {
 }
 
 //세션용
-model Session{
-  sid String @id
+model Session {
+  sid    String @id
   expire String
-  data String
+  data   String
 }
-
 
 model User {
   // 사용자 정보
-  id                Int                @id @default(autoincrement()) // 기본 키로 지정
-  loginId           String
-  password          String
-  email             String
+  id        Int      @id @default(autoincrement()) // 기본 키로 지정
+  loginId   String
+  password  String
+  email     String
   createdAt DateTime @default(now())
-  posts Post[]
-
-  @@map("USERS") //  DB의 USERS 테이블과 매핑
+  passwordErrorCount Int @default(0)
+  posts     Post[]
+  schedule  UserSchedule[]
+  @@map("user")
 }
 
-model Post{
-  id  Int  @id @default(autoincrement())
-  user User @relation(references: [id],fields:[userId])
-  userId Int // 작성자ID
-  imageLink String // 이미지파일 위치+이름+확장자
-  file String? // 받을수있는파일
-  desc String? // 글내용
-  location String? //서브정보
+model Post {
+  // 유저의 게시글
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(references: [id], fields: [userId])
+  userId    Int // 작성자ID
+  imageLink String // 이미지파일 위치+이름+확장자(publc이하.)
+  file      String? // 받을수있는파일
+  desc      String? // 글내용
+  location  String? //서브정보
   createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model UserSchedule{
+  // 유저가 현재 잡힌 일정
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(references: [id], fields: [userId])
+  userId    Int       // 작성자ID
+  file      String?   // 받을수있는파일
+  desc      String?   // 글내용
+  location  String?   //서브정보
+  date      DateTime  // 날짜
+
   @@index([userId])
 }

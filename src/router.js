@@ -1,10 +1,13 @@
 import { Router } from "express";
-import { userRegister } from "./controller/Auth/userRegister";
+import userAuth from "./controller/Auth/userAuth.js";
+import passport from "passport";
+import { displayMainPage } from "./controller/mainPage.js";
 
 
 const appRouter = Router();
-
-appRouter.post('/register',userRegister);
+appRouter.use('/auth',userAuth);
+appRouter.get('/',displayMainPage);
+appRouter.get('/myPage',displayMainPage);
 
 
 export default appRouter;
