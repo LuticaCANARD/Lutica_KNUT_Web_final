@@ -6,6 +6,8 @@ import { createServer } from "http";
 import serverless from "serverless-http";
 import cors from "cors";
 import passport from "passport";
+import MySQLStore from "express-mysql-session";
+import {db} from './src/utils/mysqldb.js'
 
 dotenv.config() //...
 
@@ -18,7 +20,8 @@ app.use(express.Router());
 app.use(BodyParser.urlencoded({
   extended: true
 }));
-const session_setting = session({
+const store =  MySQLStore(session)
+const sessionStore= new store({
     secret: process.env["session_salt"]||"AMUSOGUM",
     resave: false,
     saveUninitialized: true,
@@ -28,11 +31,18 @@ const session_setting = session({
         maxAge: 1000,
         httpOnly: true,
         },
-    })
-app.use(session_setting)
+        createDatabaseTable: false,
+        schema: {
+            tableName: 'custom_sessions_table_name',
+            columnNames: {
+                session_id: 'custom_session_id',
+                expires: 'custom_expires_column_name',
+                data: 'custom_data_column_name'
+            }
+        }
+    },db)
 app.use(passport.initialize());
 app.use(passport.session()); 
-const base = process.env["netlify"] ? '/api/' : '/'
 app.get('/',(req,res,next)=>{
     res.send('hi');
 })
