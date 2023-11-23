@@ -12,20 +12,17 @@ generator erd_svg {
   provider = "prisma-erd-generator"
   output   = "./ERD.svg"
 }
-generator kysely {
-  provider     = "prisma-kysely"
-  // 타입이 생성될 디렉토리
-  output       = "../src/server/db"
-  // 타입이 생성될 파일명
-  fileName     = "types.ts"
-  // Optionally generate runtime enums to a separate file
-  enumFileName = "enums.ts"
-}
 
 datasource db {
   provider     = "mysql"
-  url          = env("DATABASE_URL")
+  url          = env("DATABASE_URL_DEV")
   relationMode = "prisma"
+}
+
+model Session{
+  sid String @id
+  expire String
+  data String
 }
 
 model User {

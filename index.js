@@ -20,8 +20,20 @@ app.use(express.Router());
 app.use(BodyParser.urlencoded({
   extended: true
 }));
-const store =  MySQLStore(session)
-const sessionStore= new store({
+const store_ =  MySQLStore(session)
+const store= new store_(
+    {
+    createDatabaseTable: false,
+    schema: {
+        tableName: 'Session',
+        columnNames: {
+            session_id: 'sid',
+            expires: 'expire',
+            data: 'data'
+            }
+        }
+    },db);
+const session_option = {
     secret: process.env["session_salt"]||"AMUSOGUM",
     resave: false,
     saveUninitialized: true,
@@ -31,31 +43,16 @@ const sessionStore= new store({
         maxAge: 1000,
         httpOnly: true,
         },
-        createDatabaseTable: false,
-        schema: {
-            tableName: 'custom_sessions_table_name',
-            columnNames: {
-                session_id: 'custom_session_id',
-                expires: 'custom_expires_column_name',
-                data: 'custom_data_column_name'
-            }
-        }
-    },db)
+    store
+}
+app.use(session(session_option))
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.get('/',(req,res,next)=>{
     res.send('hi');
 })
 
-if(process.env["develop"]||process.env["cloude"]){
-    const server = createServer(app)
-    server.listen(process.env["port"]||3000,()=>{
-        console.log(`Server running on http://localhost:${process.env["port"]||3000}`);
-    })
-}
-
-// netlify 배포용
-export const handler = serverless(app);
-
-
-
+const server = createServer(app)
+server.listen(process.env["port"]||3000,()=>{
+    console.log(`Server running on http://localhost:${process.env["port"]||3000}`);
+})
