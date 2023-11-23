@@ -86,7 +86,9 @@ userAuth.post('/login', passport.authenticate('local', {
 }));
 userAuth.delete('/logout',userLogout);
 userAuth.get('/register',tryToRegister);
-userAuth.post('/register',userRegister,passport.authenticate('local', { 
-	successRedirect: '/myPage', failureRedirect: '/auth/login' 
-}));
+userAuth.post('/register',userRegister,
+	passport.authenticate('local', { 
+		successRedirect: '/myPage', failureRedirect: '/auth/login' 
+	})
+);
 export default userAuth;

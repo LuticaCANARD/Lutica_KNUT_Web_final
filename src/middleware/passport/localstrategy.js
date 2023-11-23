@@ -4,8 +4,6 @@ import { tryUserLogin } from '../../model/Auth/user.js';
 import { SHA256hashing } from '../../utils/hashing.js';
 // @author @LuticaCANARD 
 export default ()=>{
-	console.log('local');
-
 	passport.use(
 		new Strategy(
 			{
