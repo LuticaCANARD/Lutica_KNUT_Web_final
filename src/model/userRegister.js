@@ -1,2 +1,2 @@
-import { db } from '../utils/mysqldb'
+import { db } from '../utils/mysqldb';
 
