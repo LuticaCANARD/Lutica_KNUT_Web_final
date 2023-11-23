@@ -28,7 +28,9 @@ const session_setting = session({
         httpOnly: true,
         },
     })
-
+app.use(session_setting)
+app.use(passport.initialize());
+app.use(passport.session()); 
 app.get('/',(req,res,next)=>{
     res.send('hi');
 })
