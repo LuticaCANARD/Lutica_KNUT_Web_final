@@ -35,7 +35,7 @@ app.get('/api/get',(req,res,next)=>{
     res.send('hi');
 })
 
-if(process.env["develop"]){
+if(process.env["develop"]||process.env["cloude"]){
     const server = createServer(app)
     server.listen(process.env["port"]||3000,()=>{
         console.log(`Server running on http://localhost:${process.env["port"]||3000}`);
