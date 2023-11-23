@@ -5,6 +5,7 @@ import session from 'express-session'
 import { createServer } from "http";
 import serverless from "serverless-http";
 import cors from "cors";
+import passport from "passport";
 
 dotenv.config() //...
 
