@@ -20,16 +20,14 @@ try{
 	fs.mkdirSync('upload');
 }
 
+// 여기서는 서버의 환경설정과 필수적인 전처리를 담당한다. 
 const app = express();
 app.use(express.json());
 app.use(express.static('static'));
 app.use(BodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.set('views', 'view');
-app.use(cors({
-	credentials: true
-}));
-
+app.use(cors({credentials: true}));
 app.use(session(session_option));
 app.use(passport.initialize());
 app.use(passport.session());
