@@ -6,11 +6,10 @@ import { createServer } from "http";
 import process from 'process';
 import cors from "cors";
 import passport from "passport";
-import MySQLStore from "express-mysql-session";
-import { db } from './src/utils/mysqldb.js';
 import fs from 'fs';
 import appRouter from './src/router.js';
 import passportConfig from './src/middleware/passport/index.js';
+import { session_option } from "./options/session.js";
 passportConfig();
 dotenv.config(); //환경설정.
 
@@ -30,30 +29,7 @@ app.set('views', 'view');
 app.use(cors({
 	credentials: true
 }));
-const store_ = MySQLStore(session);
-const store = new store_({
-	createDatabaseTable: false,
-	schema: {
-		tableName: 'Session',
-		columnNames: {
-			session_id: 'sid',
-			expires: 'expire',
-			data: 'data'
-		}
-	}
-},db);
-const session_option = {
-	secret: process.env["session_salt"]||"AMUSOGUM",
-	resave: false,
-	saveUninitialized: false,
-	cookie: {
-		sameSite: false,
-		secure: process.env.NODE_ENV === "production",
-		maxAge: 60*60*100000,
-		httpOnly: true,
-	},
-	store
-};
+
 app.use(session(session_option));
 app.use(passport.initialize());
 app.use(passport.session());
