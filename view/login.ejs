@@ -1,5 +1,20 @@
-<form method="POST" action="/auth/login">
-    <input name="loginId"/>
-    <input name="password" type="password"/>
-    <input type="submit">
-</form>
+<%- include('./template/defaultHead.ejs') %>
+<div style="height:100%;display:flex;" class="background-login">
+	<div class="container submit-form" style="margin:auto;padding:20px;border: 1px solid black;">
+		<div style="margin:auto">
+			<h1>Login To Para-Real</h1>
+			<hr>
+		</div>
+		<form method="POST" action="/auth/login">
+			<div class="mb-3">
+				<label for="Id for login" class="form-label">Your ID</label>
+				<input type="text" class="form-control" name="loginId" aria-describedby="idHelp">
+			</div>
+			<div class="mb-3">
+				<label for="exampleInputPassword1" class="form-label">Password</label>
+				<input type="password" name="password" class="form-control" id="exampleInputPassword1">
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</div>

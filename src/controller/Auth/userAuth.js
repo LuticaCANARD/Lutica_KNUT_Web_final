@@ -72,8 +72,10 @@ const userRegister = async(req,res,next) =>{
 * @param {NextFunction} next 
 */
 const userLogout = async(req,res,next) =>{
-	req.logout();
-	res.redirect('/');
+	req.logout(()=>{
+		res.redirect('/');
+	});
+	
 };
 
 /**
@@ -84,6 +86,7 @@ userAuth.get('/login', tryToLogin);
 userAuth.post('/login', passport.authenticate('local', { 
 	successRedirect: '/myPage', failureRedirect: '/auth/login' 
 }));
+userAuth.get('/logout',userLogout);
 userAuth.delete('/logout',userLogout);
 userAuth.get('/register',tryToRegister);
 userAuth.post('/register',userRegister,

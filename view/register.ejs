@@ -4,3 +4,45 @@
     <input name="email" type="password"/>
     <input type="submit">
 </form>
+
+<%- include('./template/defaultHead.ejs') %>
+<body>
+    <script>
+        function onRegisterInfoSubmit(){
+
+            if(document.getElementById("readyToRegister").checked==true) 
+                return true;
+
+            alert('약관에 동의해주세요 !');
+            event.preventDefault();
+
+            return false;
+        }
+    </script>
+    <div style="height:100%;display:flex;" class="background-login">
+        <div class="container submit-form" style="margin:auto;padding:20px;border: 1px solid black;">
+            <div style="margin:auto">
+                <h1>Register To Para-Real</h1>
+                <hr>
+            </div>
+            <form method="POST" onsubmit="onRegisterInfoSubmit()" action="/auth/register">
+                <div class="mb-3">
+                    <label for="Id for login" class="form-label">Your ID</label>
+                    <input type="text" class="form-control" name="loginId" aria-describedby="idHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="InputPassword" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="InputPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="email" name="email" class="form-control" id="inputEmail">
+                </div>
+                <div>
+                    <input type="checkbox" id="readyToRegister">
+                </div>
+                <button type="submit" class="btn btn-primary" value="agree">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>

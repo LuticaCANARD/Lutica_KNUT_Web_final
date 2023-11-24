@@ -1,0 +1,12 @@
+.background-login{
+    background-image:url("/image/LoginBackground.png");
+    width:100%;
+    background-position-x: 50%;
+    background-position-y: 25%;
+    background-repeat: repeat-y;
+    background-size:  cover;
+
+}
+.submit-form{
+    background-color: aliceblue;
+}

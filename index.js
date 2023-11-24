@@ -23,15 +23,12 @@ try{
 
 const app = express();
 app.use(express.json());
+app.use(express.static('static'));
 app.use(BodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.set('views', 'view');
 app.use(cors({
 	credentials: true
-}));
-app.use(express.Router());
-app.use(BodyParser.urlencoded({
-	extended: true
 }));
 const store_ = MySQLStore(session);
 const store = new store_({
