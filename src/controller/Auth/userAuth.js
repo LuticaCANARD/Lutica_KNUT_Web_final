@@ -3,6 +3,7 @@ import * as model from '../../model/Auth/user.js';
 import passport from 'passport';
 import { render } from "ejs";
 import { SHA256hashing } from "../../utils/hashing.js";
+import {isLoginState,isNotLoginState} from '../../middleware/Auth/loginState.js';
 
 /**
  * 유저의 로그인을 위한 진입점.
@@ -82,16 +83,19 @@ const userLogout = async(req,res,next) =>{
 * 유저의 인증에 관한 엔드포인트를 다루는 라우터.
 */
 const userAuth = Router();
-userAuth.get('/login', tryToLogin);
-userAuth.post('/login', passport.authenticate('local', { 
+// 이하는 모두 로그인 상태가 아닐때에만 처리되어야 하는 엔드포인트들이다.
+userAuth.get('/login',isNotLoginState, tryToLogin);
+userAuth.post('/login',isNotLoginState, passport.authenticate('local', { 
 	successRedirect: '/myPage', failureRedirect: '/auth/login' 
 }));
-userAuth.get('/logout',userLogout);
-userAuth.delete('/logout',userLogout);
-userAuth.get('/register',tryToRegister);
-userAuth.post('/register',userRegister,
+userAuth.get('/register',isNotLoginState,tryToRegister);
+userAuth.post('/register',isNotLoginState,userRegister,
 	passport.authenticate('local', { 
 		successRedirect: '/myPage', failureRedirect: '/auth/login' 
 	})
 );
+// 이하는 로그인 상태에서만 처리되어야하는 엔드포인트이다.
+userAuth.get('/logout',isLoginState,userLogout);
+userAuth.delete('/logout',isLoginState,userLogout); // 함수에 의해서 호출되면 사용.
+
 export default userAuth;

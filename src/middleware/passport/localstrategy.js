@@ -24,8 +24,6 @@ export default ()=>{
 					const hashed = SHA256hashing(password);
 					const exUser = await tryUserLogin(loginId,hashed);
 					if (exUser) {
-						exUser.password = '';
-						req.session["user"] = exUser;
 						done(null, exUser); //? 성공이면 done()의 2번째 인수에 선언
 					} else {
 						done(null, false, { }); //? 실패면 done()의 2번째 인수는 false로 주고 3번째 인수에 선언

@@ -39,40 +39,67 @@ model Session {
 
 model User {
   // 사용자 정보
-  id        Int      @id @default(autoincrement()) // 기본 키로 지정
-  loginId   String
-  password  String
-  email     String
-  createdAt DateTime @default(now())
-  passwordErrorCount Int @default(0)
-  posts     Post[]
-  schedule  UserSchedule[]
+  id                 String         @id @default(uuid()) // 기본 키로 지정
+  loginId            String
+  password           String
+  email              String
+  createdAt          DateTime       @default(now())
+  passwordErrorCount Int            @default(0)
+  posts              Post[]
+  schedule           UserSchedule[]
+  pictures           Picture[]
+
   @@map("user")
 }
 
 model Post {
   // 유저의 게시글
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(references: [id], fields: [userId])
-  userId    Int // 작성자ID
-  imageLink String // 이미지파일 위치+이름+확장자(publc이하.)
-  file      String? // 받을수있는파일
-  desc      String? // 글내용
-  location  String? //서브정보
-  createdAt DateTime @default(now())
+  id          Int           @id @default(autoincrement())
+  user        User          @relation(references: [id], fields: [userId])
+  userId      String // 작성자ID
+  file        String? // 받을수있는파일
+  desc        String? // 글내용
+  location    String? //서브정보
+  createdAt   DateTime      @default(now())
+  PostPicture PostPicture[]
 
   @@index([userId])
 }
 
-model UserSchedule{
-  // 유저가 현재 잡힌 일정
+model Picture {
+  // 유저의 슬라이드.
   id        Int      @id @default(autoincrement())
   user      User     @relation(references: [id], fields: [userId])
-  userId    Int       // 작성자ID
-  file      String?   // 받을수있는파일
-  desc      String?   // 글내용
-  location  String?   //서브정보
-  date      DateTime  // 날짜
+  userId    String // 작성자ID
+  createdAt DateTime @default(now())
+  name      String
+  path      String
+
+  PostPicture PostPicture[]
+
+  @@index([userId])
+}
+
+// Picture와 Post의 연결관계를 만듬.
+model PostPicture {
+  id        String   @id @default(uuid())
+  post      Post?    @relation(references: [id], fields: [postId])
+  picture   Picture? @relation(references: [id], fields: [pictureId])
+  postId    Int?
+  pictureId Int?
+  @@index([postId]) // PostId를 LEFT로 해서 JOIN할경우 Key.
+  @@index([pictureId])
+}
+
+model UserSchedule {
+  // 유저가 현재 잡힌 일정
+  id       Int      @id @default(autoincrement())
+  user     User     @relation(references: [id], fields: [userId])
+  userId   String // 작성자ID
+  file     String? // 받을수있는파일
+  desc     String? // 글내용
+  location String? //서브정보
+  date     DateTime // 날짜
 
   @@index([userId])
 }

@@ -45,11 +45,11 @@ const store = new store_({
 const session_option = {
 	secret: process.env["session_salt"]||"AMUSOGUM",
 	resave: false,
-	saveUninitialized: true,
+	saveUninitialized: false,
 	cookie: {
 		sameSite: false,
 		secure: process.env.NODE_ENV === "production",
-		maxAge: 1000,
+		maxAge: 60*60*100000,
 		httpOnly: true,
 	},
 	store
