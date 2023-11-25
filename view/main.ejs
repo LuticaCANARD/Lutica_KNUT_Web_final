@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html>
 <%- include('./template/defaultHead.ejs') %>
+<body>
+    <%- include('./template/component/navbar.ejs') %>
+    <div style="background-image: url('/image/MainBack.png');height:max(85vh,1000px);display:flex;background-size: cover;">
+        
+        <main class="px-3" style="margin: auto;">
+            <h1>Para-Real.</h1>
+            <p class="lead">Para-Real is The open gallery for metaverse Photographers.</p>
+            <div>
+                <p class="lead">
+                    <a href="/auth/register" class="btn btn-lg btn-light fw-bold border-white bg-white">Join Now!</a>
+                </p>
+                <p class="lead">
+                    <a href="/auth/login" class="btn btn-lg btn-light fw-bold border-white bg-white">Login</a>
+                </p>
+            </div>
+        </main>
+        
+    </div>
+    <%- include('./template/component/footer.ejs') %>
+</body>
+</html>

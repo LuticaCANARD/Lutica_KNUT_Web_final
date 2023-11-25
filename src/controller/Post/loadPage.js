@@ -19,6 +19,9 @@ export const loadUserPage = async(req,res,next) =>{
 	const idPass = req.params.userId;
 	const posts = await loadUserPosts(idPass,0,10);
 	const info = await loadUserMain(idPass);
-	res.render('memberPage/myPage.ejs',{info,posts,mypage:false});
+	res.render('memberPage/myPage.ejs',{
+		info,
+		posts,
+		mypage : idPass===req.session?.passport?.user});
 };
 

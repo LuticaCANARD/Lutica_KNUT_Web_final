@@ -32,6 +32,11 @@ const tryToRegister= async(req,res,next) =>{
 */
 const userRegister = async(req,res,next) =>{
 	const id = req.body["loginId"];
+	if(id==''){
+		// 아이디가 비었다.
+		res.redirect('/auth/register');
+		return;
+	}
 	const exists_id = await model.getUserIDIsAlreadyExists(id);
 	if(exists_id == true) {
 		res.status(409).json({

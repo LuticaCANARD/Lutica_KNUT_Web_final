@@ -7,6 +7,9 @@ import { render } from "ejs";
  */
 export const displayMainPage = (req,res,next) =>{
 	console.log(req.session);
-
 	res.render('main.ejs',{col:req.session});
+};
+
+export const displayPolicy = (req,res,next) =>{
+	res.render('static/policy_pp.ejs');
 };
