@@ -27,7 +27,10 @@ app.use(express.static('static'));
 app.use(BodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.set('views', 'view');
-app.use(cors({credentials: true}));
+app.use(cors({
+	credentials: true,
+	origin: process.env["develop"]?"http://localhost:3000":"https://port-0-lutica-knut-web-final-3szcb0g2blpam13n5.sel5.cloudtype.app"
+}));
 app.use(session(session_option));
 app.use(passport.initialize());
 app.use(passport.session());

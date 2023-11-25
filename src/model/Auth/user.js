@@ -33,10 +33,10 @@ export const getUserEmailIsAlreadyExists = async (email) =>{
  */
 export const tryUserLogin = async (id,hashedPassword) => {
 	const result = await db.query("SELECT * FROM user WHERE loginId = ? AND password = ?",[id,hashedPassword]);
-	console.log(result[0]);
 	if(result[0].length>0){ 
+		// id와 비밀번호가 같은 유저가 있다.
 		// 딱히 결과를 기다릴 필요가 없으므로, 콜백기반으로 해도됨.
-		db_common.promise().query("UPDATE user SET passwordErrorCount = 0 WHERE loginId = ?",[id]).then(()=>{}); 
+		db_common.promise().query("UPDATE user SET passwordErrorCount = 0 WHERE loginId = ?",[id]).then(); 
 		return result[0][0]; // 완벽한 로그인 성공.
 	}
 	const existId = await db.query("SELECT * FROM user WHERE loginId = ?",[id]);
@@ -62,6 +62,6 @@ export const insertUserTable = async (loginId,email,hashedPassword) => {
  * @returns 유저의 객체
  */
 export const getUserInfoFromUserno = async (id) => {
-	const ret = await db.query("SELECT * FROM user WHERE id = ?",[id]);
+	const ret = await db.query("SELECT id,loginId,password,email,createdAt,passwordErrorCount FROM user WHERE id = ?",[id]);
 	return ret[0][0];
 };

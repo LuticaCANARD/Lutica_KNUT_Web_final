@@ -1,0 +1,17 @@
+<body>
+    <%- include('../template/component/image.ejs',
+        {
+            src: info.mainTitlePicture ,classes:"title-picture",etc:false 
+        }) 
+    %>
+    <%- include('../template/component/image.ejs',
+        {
+            src: info.mainProfilePicture ,
+            classes:"title-picture",etc:false 
+        }) 
+    %>
+    <% if(mypage==true) { %>
+        mypage
+    <% } %>
+</body>
+
