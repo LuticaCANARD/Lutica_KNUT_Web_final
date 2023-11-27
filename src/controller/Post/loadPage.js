@@ -22,6 +22,7 @@ export const loadUserPage = async(req,res,next) =>{
 	res.render('memberPage/myPage.ejs',{
 		info,
 		posts,
-		mypage : idPass===req.session?.passport?.user});
+		mypage : idPass===req.session?.passport?.user // 내 id를 불러왔을떄 내 page를 불러오는 것과 동일하게 하고 끝낸다.
+	});
 };
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { upload } from "../../utils/multerUploader.js";
+import { upload,uploadPrivate } from "../../utils/multerUploader.js";
 import { isLoginState } from "../../middleware/Auth/loginState.js";
 import fs from 'fs';
 /**
@@ -28,7 +28,6 @@ const downloadFile = (req,res,next) =>{
 	}
 	try {
 		// download()를 사용해서 파일을 프론트쪽으로 보내준다.
-		console.log(filename);
 		res.download(`upload/${filename}`);
 	} catch (err) {
 		res.status(500).send(true);
@@ -37,7 +36,7 @@ const downloadFile = (req,res,next) =>{
 
 const fileController = Router();
 fileController.post('/upload',upload.single('files'),processAfterUploadFile); //files로 보내면됨.
-fileController.post('/upload_private',isLoginState,upload.single('files'),processAfterUploadFile);
+fileController.post('/upload_private',isLoginState,uploadPrivate.single('files'),processAfterUploadFile);
 fileController.get('/download/:filename*',downloadFile);
 
 export default fileController;

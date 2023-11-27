@@ -18,7 +18,28 @@ export const upload = multer({
 			if ( thereIsExits === true ) {
 				while( thereIsExits === true ){
 					count++;
-					thereIsExits = fs.existsSync(`upload/${file.originalname}`);
+					thereIsExits = fs.existsSync(`upload/${file.originalname +  String(count)}`);
+				}
+			}
+			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+		}
+	}),
+	limits:{fileSize: 5*1024*1024}
+});
+
+export const uploadPrivate = multer({
+	storage:multer.diskStorage({
+		destination(req,file,done){
+			done(null,'upload/');
+		},
+		filename(req,file,done){
+			let ext = path.extname(file.originalname);
+			let count = 0;
+			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/${file.originalname}`);
+			if ( thereIsExits === true ) {
+				while( thereIsExits === true ){
+					count++;
+					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/${file.originalname + String(count)}`);
 				}
 			}
 			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);

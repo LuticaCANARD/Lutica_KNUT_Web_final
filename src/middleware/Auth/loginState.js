@@ -25,11 +25,9 @@ export const isLoginState = (req,res,next) => {
  * @returns 
  */
 export const isNotLoginState = (req,res,next) => {
-	console.log('notlogged1');
 
 	if(req.session?.passport?.user) {
-		console.log('notlogged');
-		res.redirect('/');
+		res.redirect('/MyPage');
 		return;
 	}
 	next();

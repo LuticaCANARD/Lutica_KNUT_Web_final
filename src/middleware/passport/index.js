@@ -6,7 +6,6 @@ export default () => {
 		return done(null, user.id);
 	});
 	passport.deserializeUser(async(id, done) => {
-		console.log('ss');
 		const user = await getUserInfoFromUserno(id);
 		done(null,user);
 	});
