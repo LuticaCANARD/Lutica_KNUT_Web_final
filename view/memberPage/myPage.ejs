@@ -1,17 +1,36 @@
+<%- include('../template/defaultHead.ejs') %>
 <body>
-    <%- include('../template/component/image.ejs',
-        {
-            src: info.mainTitlePicture ,classes:"title-picture",etc:false 
-        }) 
-    %>
-    <%- include('../template/component/image.ejs',
-        {
-            src: info.mainProfilePicture ,
-            classes:"title-picture",etc:false 
-        }) 
-    %>
+    <div style="width: 100%;">
+    <%- include('../template/component/navbar.ejs') %>
+
+    <div>
+        <!-- 헤더 사진 -->
+
+        <%- include('../template/component/image.ejs',
+            {
+                src: info.mainTitlePicture ,
+                classes:"title-picture",etc:false 
+            }) 
+        %>
+    </div>
+    <div>
+        <!-- 프로필 사진 -->
+        <%- include('../template/component/image.ejs',
+            {
+                src: info.mainProfilePicture ,
+                classes:"profile-picture",etc:false 
+            }) 
+        %>
+    </div>
+
     <% if(mypage==true) { %>
+        <!-- 내 메인일떄... -->
         mypage
     <% } %>
+
+    
+    </div>
+    <%- include('../template/component/footer.ejs') %>
+
 </body>
 
