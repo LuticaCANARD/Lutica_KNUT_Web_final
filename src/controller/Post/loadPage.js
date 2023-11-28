@@ -26,3 +26,6 @@ export const loadUserPage = async(req,res,next) =>{
 	});
 };
 
+export const loadSocialPage = async(req,res,next) =>{
+
+};

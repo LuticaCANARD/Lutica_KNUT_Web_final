@@ -105,3 +105,9 @@ model UserSchedule {
 
   @@index([userId])
 }
+
+model Social{
+  followerId String
+  targetId String
+  @@id([followerId,targetId])
+}

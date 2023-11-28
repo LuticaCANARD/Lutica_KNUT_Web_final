@@ -44,6 +44,10 @@ erDiagram
 		String location  "nullable"
 		DateTime date
 	}
+	Social {
+		String followerId
+		String targetId
+	}
 	Post }o--|| user : user
 	Picture }o--|| user : user
 	PostPicture }o--|| Post : post
