@@ -6,17 +6,22 @@ import { loadSocialPage,loadPictureList } from "../model/Post/loadPage.js";
  * @param {Response} res 
  * @param {NextFunction} next 
  */
-export const displayMainPage = (req,res,next) =>{
-	let posts = [];
+export const displayMainPage = async (req,res,next) =>{
 	if(req.session?.passport?.user){ 
+		const myno =req.session?.passport?.user;
 		// 로그인 된 상태라면, 친구들의 게시글을 불러온다.
-		posts = loadSocialPage(req.session?.passport?.user,Number(req.query["page"])?Number(req.query["page"]):0,3);
-		const aa = loadPictureList([1,2,3]);
-	} 		
-	res.render('main.ejs',{
-		col:req.session,
-		posts
-	});
+		const posts = await loadSocialPage(myno,Number(req.query["page"])?Number(req.query["page"])*3:0,3);
+		const idList = [];
+		posts.map(po=>idList.push(po["id"]));
+		if(idList.length==0){
+			res.render('mypage.ejs',{col:req.session,posts});
+			return;
+		}
+		const postPic = await loadPictureList(idList);
+		res.render('mypage.ejs',{col:req.session,posts,postPic});
+	} else res.render('main.ejs',{col:req.session});
+	
+	
 
 };
 
