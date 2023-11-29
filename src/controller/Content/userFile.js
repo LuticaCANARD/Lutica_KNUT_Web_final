@@ -9,7 +9,8 @@ import fs from 'fs';
 * @param {NextFunction} next 
 */
 const processAfterUploadFile = (req,res,next) =>{
-	
+	console.log(req.body.filename);
+	res.send(true);
 };
 
 /**
@@ -33,9 +34,10 @@ const downloadFile = (req,res,next) =>{
 		res.status(500).send(true);
 	}
 };
+const uploadFile = upload.single('file');
 
 const fileController = Router();
-fileController.post('/upload',upload.single('files'),processAfterUploadFile); //files로 보내면됨.
+fileController.post('/upload',uploadFile,processAfterUploadFile); //files로 보내면됨.
 fileController.post('/upload_private',isLoginState,uploadPrivate.single('files'),processAfterUploadFile);
 fileController.get('/download/:filename*',downloadFile);
 
