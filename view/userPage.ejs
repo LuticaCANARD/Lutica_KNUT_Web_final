@@ -8,7 +8,7 @@
     <div style="width: 100%;">
     <%- include('./template/component/navbar.ejs') %>
 
-    <div>
+    <div class="header">
         <!-- 헤더 사진 -->
     <% if( info.mainTitlePicture ){ %>
         <%- include('./template/component/image.ejs',
@@ -18,33 +18,48 @@
             }) 
         %>
     <% } else { %>
-
+        <div class="none-background-header"></div>
     <% } %>
     </div>
-    <div>
-    <% if( info.mainProfilePicture ){ %>
-        <!-- 프로필 사진 -->
-        <%- include('./template/component/image.ejs',
-            {
-                src: info.mainProfilePicture ,
-                classes:"profile-picture",etc:false 
-            }) 
-        %>
+    <div class="page-bottom">
+        <div class="main-desc">
+            <div class="desc-page">
+                <div class="profile-warp">
+                <% if( info.mainProfilePicture ){ %>
+                    <!-- 프로필 사진 -->
+                    <%- include('./template/component/image.ejs',
+                        {
+                            src: info.mainProfilePicture ,
+                            classes:"profile-picture",etc:false 
+                        }) 
+                    %>
+                <% } else { %>
+                    <div class="none-background-profile profile"></div>
+                <% } %>
+                </div>
+                <div class="desc-page-wrap">
+                    <div class="desc-page-title">
+                        <h1><%= info.nickname %></h1>
+                        <% if(mypage==true) { %>
+                            <!-- 내 메인일떄... -->
+                            <button class="btn btn-primary" onclick ="gotoSetting()">
+                                Setting...
+                            </button>
+                        <% } %>
+                    </div>
+                    <hr>
+                    <div class="desc-context">
+                        <%= info.mainDesc %>
+                    </div>
+                    <HR/>
+                    <div>
+                        "posts"
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <% } else { %>
 
-    <% } %>
-    <% if(mypage==true) { %>
-        <!-- 내 메인일떄... -->
-        mypage
-        <button class="btn btn-primary" onclick ="gotoSetting()">
-            Setting...
-        </button>
-    <% } %>
-
-    
-    </div>
     <%- include('./template/component/footer.ejs') %>
-
 </body>
 

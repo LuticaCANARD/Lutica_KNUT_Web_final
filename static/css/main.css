@@ -10,3 +10,106 @@
 .submit-form{
     background-color: aliceblue;
 }
+
+.none-background-header{
+    background-color:rgb(164, 187, 242);
+
+    width: 100%;
+    height: 100%;
+}
+.none-background-profile{
+    background-color:rgb(82, 112, 182);
+    width: 100%;
+    height: 100%;
+}
+.header{
+    justify-content: space-around;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+}
+
+.title-picture{
+    max-width: 1200px;
+
+    background-position-x: 50%;
+    background-position-y: 25%;
+    background-repeat: repeat-y;
+    background-size:  cover;
+    width: 100%;
+    height: 100%;
+
+}
+.profile-picture{
+    padding-top:100%;
+    background-position-x: 50%;
+    background-position-y: 25%;
+    background-repeat: repeat-y;
+    background-size:  cover;
+    width: 100%;
+}
+.profile{
+    max-width: 100px;
+    max-height: 100px;
+    padding-top:100%;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-repeat: repeat-y;
+    background-size:  cover;
+}
+.profile-warp{
+    position: sticky;
+    max-width: 100px;
+    max-height: 100px;
+}
+.main-desc{
+    display: flex;
+    justify-content: center;
+    top:-20px;
+}
+.desc-page{
+    max-width: 1000px;
+    width:80%;
+}
+.page-bottom{
+    top:-50px;
+    position : relative;
+}
+.desc-page-wrap{
+
+}
+.desc-page-title{
+    display: flex;
+    width:80%;
+    justify-content: space-between;
+    left:0px;
+}
+@media  (max-width: 750px) {
+    .change-field{
+        flex-direction: column;
+
+    }   
+}
+@media (min-width: 751px)  {
+    .change-field{
+        flex-direction: row;
+
+    }  
+}
+.change-field{
+    display: flex;
+
+    justify-content: space-between
+}
+.form-item{
+    display: flex;
+    flex-direction: column
+}
+.desc-context{
+    resize: vertical;
+}
+.change-form{
+    display: flex;
+    flex-direction: column;
+}

@@ -1,16 +1,93 @@
 <%- include('./template/defaultHead.ejs') %>
 <body>
-    <%- include('./template/component/navbar.ejs') %>
-    <%= info %>
     <!-- 설정 결과 토스트 -->
-    
-    <!-- 프로필 사진 설정 -->
 
-    <!-- 헤더 사진 설정 -->
-    <form action="/file/upload" method="POST"  enctype="multipart/form-data">
-        <input type="file" name="file">
-        <button>Action</button>
-    </form>
+    <% if(locals.toast){%>
+        
+
+    <%} %>
+
     <!-- 친구 설정 :: 친구 삭제 / 추가 -->
+
+    <script>
+        function gotoHome(e){
+            location.href="/MyPage"
+        }
+       
+    </script>
+    <div style="width: 100%;">
+        <%- include('./template/component/navbar.ejs') %>
+
+    <div class="header">
+        <!-- 헤더 사진 -->
+    <% if( info.mainTitlePicture ){ %>
+        <%- include('./template/component/image.ejs',
+            {
+                src: info.mainTitlePicture ,
+                classes:"title-picture",etc:false 
+            }) 
+        %>
+    <% } else { %>
+        <div class="none-background-header"></div>
+    <% } %>
+    </div>
+    <div class="page-bottom">
+        <div class="main-desc">
+            <div class="desc-page">
+                <div class="profile-warp">
+                <% if( info.mainProfilePicture ){ %>
+                    <!-- 프로필 사진 -->
+                    <%- include('./template/component/image.ejs',
+                        {
+                            src: info.mainProfilePicture ,
+                            classes:"profile-picture",etc:false 
+                        }) 
+                    %>
+                    <!-- 프로필 사진 설정 -->
+                <% } else { %>
+                    <div class="none-background-profile profile"></div>
+                <% } %>
+                
+                </div>
+                <button onclick="gotoHome()" class="btn btn-primary"> 돌아가기 </button>
+
+                <!-- 헤더 사진 설정 -->
+                <div class="change-field">
+                    <div class="form-item">
+                        <h3>
+                            프로필 사진 변경
+                        </h3>
+                        <form action="/file/uploadProfile" method="post" enctype="multipart/form-data" >
+                            <input type="file" name="file" accept="image/jpeg,image/png" required>
+                            <button class="btn btn-primary">변경</button>
+                        </form>
+                    </div>
+                    <div class="form-item">
+                        <h3>
+                            헤더 사진 변경
+                        </h3>
+                        <form action="/file/uploadHeader" method="post"  enctype="multipart/form-data"  >
+                            <input type="file" name="file" accept="image/jpeg,image/png" required>
+                            <button class="btn btn-primary">변경</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="desc-page-wrap">
+                    <form action="/changeProfile" method="POST" class="change-form">
+                        <div class="desc-page-title">
+                            <input type="text" value="<%= info.nickname %>" name="nick"/>
+                        </div>
+                        <hr>
+                        <textarea class="desc-context" name="desc"><%= info.mainDesc %></textarea>
+                        <button class="btn btn-primary"> 닉네임 및 프로필 설명 변경 </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./template/component/footer.ejs') %>
+
+
 
 </body>

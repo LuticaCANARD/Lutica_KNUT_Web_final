@@ -32,7 +32,6 @@ export const loadSocialPage = async(req,res,next) =>{
 
 export const loadSetting = async(req,res,next) =>{
 	const idPass = req.session.passport.user;
-
 	const info = await loadUserMain(idPass);
 	res.render('pageSetting.ejs',{info});
 };

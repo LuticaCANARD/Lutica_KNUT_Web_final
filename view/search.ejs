@@ -1,0 +1,19 @@
+<%- include('./template/defaultHead.ejs') %>
+<body>
+    <script>
+        function gotoSetting(e){
+            location.href="/setting"
+        }
+    </script>
+    <div style="width: 100%;">
+    <%- include('./template/component/navbar.ejs') %>
+    <% if(data.length>0) {%>
+        <% for(let i=0;i<data.length;i++) {%>
+            <a href="/page/<%= data[i].id %>">aa</a>
+        <% } %>
+    <% } else {%>
+        <h1>검색결과가 없습니다!~</h1>
+    <%} %>
+
+    </div>
+</body>

@@ -16,7 +16,7 @@ export const loadUserPosts = async(userId,offset,count) =>{
  * @param {string} userId 유저의 id입니다.
  */
 export const loadUserMain = async (userId) =>{
-	const userInfo = await db.query("SELECT mainDesc,mainTitlePicture,mainProfilePicture FROM user WHERE id=?",[userId]);
+	const userInfo = await db.query("SELECT nickname,mainDesc,mainTitlePicture,mainProfilePicture FROM user WHERE id=?",[userId]);
 	return userInfo[0][0];
 };
 

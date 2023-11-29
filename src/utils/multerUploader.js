@@ -32,16 +32,16 @@ export const upload = multer({
 export const uploadPrivate = multer({
 	storage:multer.diskStorage({
 		destination(req,file,done){
-			done(null,`upload/${req.session?.passport?.id}/`);
+			done(null,`upload/${req.session?.passport?.user}/`);
 		},
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/${file.originalname}`);
+			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${file.originalname}`);
 			if ( thereIsExits === true ) {
 				while( thereIsExits === true ){
 					count++;
-					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/${path.basename(file.originalname,ext)+ String(count)+ext}`);
+					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${path.basename(file.originalname,ext)+ String(count)+ext}`);
 				}
 			}
 			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
@@ -54,19 +54,14 @@ export const uploadPrivate = multer({
 export const uploadProfile = multer({
 	storage:multer.diskStorage({
 		destination(req,file,done){
-			done(null,`upload/${req.session?.passport?.id}/profile`);
+			if(!fs.existsSync(`upload/${req.session?.passport?.user}`)) fs.mkdirSync(`upload/${req.session?.passport?.user}`);
+			if(!fs.existsSync(`upload/${req.session?.passport?.user}/profile`)) fs.mkdirSync(`upload/${req.session?.passport?.user}/profile`);
+			done(null,`upload/${req.session?.passport?.user}/profile`);
 		},
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/profile/${file.originalname}`);
-			if ( thereIsExits === true ) {
-				while( thereIsExits === true ){
-					count++;
-					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/${path.basename(file.originalname,ext)+ String(count)+ext}`);
-				}
-			}
-			req.body["filename"] = path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+			req.body["filename"] = `${req.session?.passport?.user}/profile/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
 
 			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
 		}
@@ -78,18 +73,16 @@ export const uploadProfile = multer({
 export const uploadHeader = multer({
 	storage:multer.diskStorage({
 		destination(req,file,done){
-			done(null,`upload/${req.session?.passport?.id}/header`);
+			if(!fs.existsSync(`upload/${req.session?.passport?.user}`)) fs.mkdirSync(`upload/${req.session?.passport?.user}`);
+			if(!fs.existsSync(`upload/${req.session?.passport?.user}/header`)) fs.mkdirSync(`upload/${req.session?.passport?.user}/header`);
+			done(null,`upload/${req.session?.passport?.user}/header`);
 		},
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/header/${file.originalname}`);
-			if ( thereIsExits === true ) {
-				while( thereIsExits === true ){
-					count++;
-					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.id}/header/${path.basename(file.originalname,ext)+ String(count)+ext}`);
-				}
-			}
+
+			req.body["filename"] = `${req.session?.passport?.user}/header/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+
 			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
 		},
 	}),
