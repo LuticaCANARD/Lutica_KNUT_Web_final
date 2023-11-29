@@ -5,11 +5,12 @@
     <%- include('./template/component/navbar.ejs') %>
     <div style="background-image: url('/image/MainBack.png');height:max(85vh,1000px);display:flex;background-size: cover;">
         <% if(locals.posts){ %>
+            <h1> 최근 포스트 </h1>
             <% if(posts.length==0){ %>
                 <h1>최근 게시글이 없습니다...</h1>
             <% } else { %>
-                <% for(let i=0;i<posts;i++){%>
-
+                <% for (let i=0;i<posts.length;i++){%>
+                    <% include('./template/postMini.ejs',{post:posts[i]}) %>
                 <% } %>    
             <% } %>
         <% } %>

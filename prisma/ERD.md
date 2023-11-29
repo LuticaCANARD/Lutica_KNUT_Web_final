@@ -6,9 +6,10 @@ erDiagram
 		String data
 	}
 	user {
-		String id PK  "uuid()"
+		Int id PK  "autoincrement()"
 		String loginId
 		String password
+		String nickname
 		String email
 		DateTime createdAt  "now()"
 		Int passwordErrorCount
@@ -18,7 +19,7 @@ erDiagram
 	}
 	Post {
 		Int id PK  "autoincrement()"
-		String userId FK
+		Int userId FK
 		String file  "nullable"
 		String desc  "nullable"
 		String location  "nullable"
@@ -26,27 +27,27 @@ erDiagram
 	}
 	Picture {
 		Int id PK  "autoincrement()"
-		String userId FK
+		Int userId FK
 		DateTime createdAt  "now()"
 		String name
 		String path
 	}
 	PostPicture {
-		String id PK  "uuid()"
+		Int id PK  "autoincrement()"
 		Int postId FK  "nullable"
 		Int pictureId FK  "nullable"
 	}
 	UserSchedule {
 		Int id PK  "autoincrement()"
-		String userId FK
+		Int userId FK
 		String file  "nullable"
 		String desc  "nullable"
 		String location  "nullable"
 		DateTime date
 	}
 	Social {
-		String followerId
-		String targetId
+		Int followerId
+		Int targetId
 	}
 	Post }o--|| user : user
 	Picture }o--|| user : user

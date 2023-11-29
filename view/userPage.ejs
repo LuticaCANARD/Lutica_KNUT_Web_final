@@ -1,19 +1,28 @@
 <%- include('./template/defaultHead.ejs') %>
 <body>
+    <script>
+        function gotoSetting(e){
+            location.href="/setting"
+        }
+    </script>
     <div style="width: 100%;">
     <%- include('./template/component/navbar.ejs') %>
 
     <div>
         <!-- 헤더 사진 -->
-
+    <% if( info.mainTitlePicture ){ %>
         <%- include('./template/component/image.ejs',
             {
                 src: info.mainTitlePicture ,
                 classes:"title-picture",etc:false 
             }) 
         %>
+    <% } else { %>
+
+    <% } %>
     </div>
     <div>
+    <% if( info.mainProfilePicture ){ %>
         <!-- 프로필 사진 -->
         <%- include('./template/component/image.ejs',
             {
@@ -22,10 +31,15 @@
             }) 
         %>
     </div>
+    <% } else { %>
 
+    <% } %>
     <% if(mypage==true) { %>
         <!-- 내 메인일떄... -->
         mypage
+        <button class="btn btn-primary" onclick ="gotoSetting()">
+            Setting...
+        </button>
     <% } %>
 
     

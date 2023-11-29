@@ -21,7 +21,7 @@ export const loadUserMain = async (userId) =>{
 };
 
 export const loadSocialPage = async(userId,offset,size) =>{
-	const ret = await db.query("SELECT * FROM Social AS A INNER JOIN Post AS B ON A.targetId=B.userId WHERE A.followerId = ? ORDER BY B.createdAt DESC LIMIT ? OFFSET ?",[userId,size,offset]);
+	const ret = await db.query("SELECT B.*,C.nickname FROM Social AS A INNER JOIN Post AS B ON A.targetId=B.userId INNER JOIN user AS C WHERE A.followerId = ? ORDER BY B.createdAt DESC LIMIT ? OFFSET ?",[userId,size,offset]);
 	return ret[0];
 };
 /**
