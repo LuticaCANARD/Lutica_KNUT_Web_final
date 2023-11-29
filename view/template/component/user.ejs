@@ -1,0 +1,30 @@
+<div class="card" style="width: 18rem;">
+    <% if( user.mainProfilePicture ){ %>
+        <%- include('./image.ejs',
+        {
+            src:   user.mainTitlePicture  ,
+            classes:"profile-picture card-img-top",etc:false 
+        }) 
+    %>
+    <% } else { %>
+        <div class="none-background-header"style="padding-top: 100%;height: 0;"></div>
+
+    <% } %>
+    <div class="card-body">
+        <div class="profile-warp">
+            <% if( user.mainProfilePicture ){ %>
+                <%- include('./image.ejs',
+                    {
+                        src:  user.mainProfilePicture  ,
+                        classes:"profile-picture",etc:false 
+                    }) 
+                %>
+            <% } else { %>
+                <div class="none-background-profile profile" ></div>
+            <% } %>
+        </div>
+        <h5 class="card-title"><%= user.nickname %></h5>
+        <p class="card-text"><%= user.mainDesc %></p>
+        <a href="/page/<%= user.id %>" class="btn btn-primary">Go to Page</a>
+    </div>
+  </div>

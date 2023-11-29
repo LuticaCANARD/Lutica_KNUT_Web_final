@@ -13,7 +13,6 @@
 
 .none-background-header{
     background-color:rgb(164, 187, 242);
-
     width: 100%;
     height: 100%;
 }
@@ -116,4 +115,8 @@
 .page-bottom-notop{
     position : relative;
 width:100%;
+}
+.recommend_user{
+    display: flex;
+    justify-content: space-around;
 }
