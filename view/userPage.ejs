@@ -4,6 +4,13 @@
         function gotoSetting(e){
             location.href="/setting"
         }
+        function doFollowing(){
+            location.href="/social/following/<%= info.id %>"
+        }
+        function undoFollowing(){
+            location.href="/social/unfollowing/<%= info.id %>"
+
+        }
     </script>
     <div style="width: 100%;">
     <%- include('./template/component/navbar.ejs') %>
@@ -45,6 +52,16 @@
                             <button class="btn btn-primary" onclick ="gotoSetting()">
                                 Setting...
                             </button>
+                        <% } else { %>
+                            <% if(!info.targetId){%>
+                            <button class="btn btn-primary " onclick ="doFollowing()">
+                                Follow
+                            </button>
+                            <%} else {%>
+                            <button class="btn btn-danger " onclick ="undoFollowing()">
+                                UnFollow
+                            </button>
+                            <% } %>
                         <% } %>
                     </div>
                     <hr>

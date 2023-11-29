@@ -15,8 +15,8 @@ export const loadUserPosts = async(userId,offset,count) =>{
  * 유저의 메인 정보를 불러옵니다.
  * @param {string} userId 유저의 id입니다.
  */
-export const loadUserMain = async (userId) =>{
-	const userInfo = await db.query("SELECT nickname,mainDesc,mainTitlePicture,mainProfilePicture FROM user WHERE id=?",[userId]);
+export const loadUserMain = async (userId,myid) =>{
+	const userInfo = await db.query("SELECT id,nickname,mainDesc,mainTitlePicture,mainProfilePicture,B.targetId FROM user AS A LEFT JOIN (SELECT * FROM Social WHERE followerId=?) AS B ON A.id=B.targetId WHERE id=?",[myid,userId]);
 	return userInfo[0][0];
 };
 

@@ -113,3 +113,7 @@
     display: flex;
     flex-direction: column;
 }
+.page-bottom-notop{
+    position : relative;
+width:100%;
+}

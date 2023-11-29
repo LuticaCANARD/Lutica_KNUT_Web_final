@@ -76,10 +76,8 @@ const uploadFile = upload.single('file');
 const onSettingFileError = async(err,req,res,next) =>{
 	const idPass = req.session.passport.user;
 	const toast = req.session?.errormsg;
-	console.log(toast);
-	const info = await loadUserMain(idPass);
+	const info = await loadUserMain(idPass,idPass);
 	res.render('pageSetting.ejs',{info,toast});
-
 };
 
 const fileController = Router();

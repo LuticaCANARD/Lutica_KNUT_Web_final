@@ -6,14 +6,40 @@
         }
     </script>
     <div style="width: 100%;">
-    <%- include('./template/component/navbar.ejs') %>
-    <% if(data.length>0) {%>
-        <% for(let i=0;i<data.length;i++) {%>
-            <a href="/page/<%= data[i].id %>">aa</a>
-        <% } %>
-    <% } else {%>
-        <h1>검색결과가 없습니다!~</h1>
-    <%} %>
 
+        <%- include('./template/component/navbar.ejs') %>
+        <div class="header">
+            <div class="none-background-header"></div>
+        </div>
+        <div class="page-bottom-notop">
+            <div class="main-desc">
+                <div class="desc-page">
+                    <BR/>
+                    <div>
+                        <h1>닉네임 검색</h1>
+                        <% if(data.length>0) {%>
+                            <% for(let i=0;i<data.length;i++) {%>
+                                <a href="/page/<%= data[i].id %>">aa</a>
+                            <% } %>
+                        <% } else {%>
+                            <p1>검색결과가 없습니다!~</p1>
+                        <%} %>
+                    </div>
+                    <hr/>
+                    <div>
+                        <h1>유저 랜덤 추천!</h1>
+                        <% if(randomData.length>0) {%>
+                            <% for(let i=0;i<randomData.length;i++) {%>
+                                <a href="/page/<%= randomData[i].id %>">aa</a>
+                            <% } %>
+                        <% } else {%>
+                            <p1>추천결과가 없습니다!~ 모두를 팔로우하고 계시군요!</p1>
+                        <%} %>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <%- include('./template/component/footer.ejs') %>
+
 </body>

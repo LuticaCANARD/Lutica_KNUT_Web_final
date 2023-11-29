@@ -63,7 +63,7 @@ model Post {
   userId      Int // 작성자ID
   title       String
   file        String? // 받을수있는파일
-  desc        String? // 글내용
+  desc        String? // 글내용 -> mongo OID로 가자...
   location    String? //서브정보
   createdAt   DateTime      @default(now())
   PostPicture PostPicture[]
@@ -112,4 +112,5 @@ model Social{
   followerId Int
   targetId Int
   @@id([followerId,targetId])
+  @@index([followerId])
 }

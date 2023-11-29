@@ -24,7 +24,31 @@ export const displayMainPage = async (req,res,next) =>{
 	
 
 };
-
+/**
+* 
+* @param {Request} req 
+* @param {Response} res 
+* @param {NextFunction} next 
+*/
 export const displayPolicy = (req,res,next) =>{
 	res.render('static/policy_pp.ejs');
+};
+/**
+* 
+* @param {Request} req 
+* @param {Response} res 
+* @param {NextFunction} next 
+*/
+export const displayWritePage = (req,res,next) =>{
+	res.render('write.ejs');
+
+};
+/**
+* 
+* @param {Request} req 
+* @param {Response} res 
+* @param {NextFunction} next 
+*/
+export const displayFileWritePage = (req,res,next) =>{
+	res.render('filewrite.ejs');
 };
