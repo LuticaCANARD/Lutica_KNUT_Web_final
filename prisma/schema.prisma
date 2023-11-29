@@ -61,6 +61,7 @@ model Post {
   id          Int           @id @default(autoincrement())
   user        User          @relation(references: [id], fields: [userId])
   userId      Int // 작성자ID
+  title       String
   file        String? // 받을수있는파일
   desc        String? // 글내용
   location    String? //서브정보

@@ -20,6 +20,7 @@ erDiagram
 	Post {
 		Int id PK  "autoincrement()"
 		Int userId FK
+		String title
 		String file  "nullable"
 		String desc  "nullable"
 		String location  "nullable"
