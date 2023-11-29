@@ -5,6 +5,7 @@ import { displayMainPage,displayPolicy } from "./controller/mainPage.js";
 import { isLoginState , isNotLoginState} from './middleware/Auth/loginState.js';
 import fileController from './controller/Content/userFile.js';
 import { loadMyPage,loadUserPage,loadSetting } from "./controller/Post/loadPage.js";
+import { searchingPeopleRouter } from "./controller/searching.js";
 
 
 const appRouter = Router();
@@ -16,7 +17,7 @@ appRouter.use('/auth',userAuth);
 appRouter.use('/file',fileController);
 appRouter.get('/myPage',isLoginState,loadMyPage);
 appRouter.get('/setting',isLoginState,loadSetting);
-appRouter.get('/search',loadSetting);
+appRouter.get('/search',searchingPeopleRouter);
 appRouter.get('/page/:userId',loadUserPage);
 
 export default appRouter;
