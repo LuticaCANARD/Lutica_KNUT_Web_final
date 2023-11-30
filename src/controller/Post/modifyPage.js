@@ -2,16 +2,7 @@
 
 import {db} from '../../utils/mysqldb.js';
 
-/**
- * XSS 방어용 
- * @param {string} origin 
- */
-const cleanText = (origin) =>{
-	let v = origin;
-	v = v.replaceAll("<","&lt");
-	v = v.replaceAll(">","&gt");
-	return v;
-};
+
 /**
 * 
 * @param {Request} req 

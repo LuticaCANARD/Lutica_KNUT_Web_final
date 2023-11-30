@@ -6,6 +6,13 @@
         function gotoPost(id){
             location.href='/post/'+id
         }
+        window.onload = ()=>{
+            const times = document.querySelectorAll(".time_")
+            times.forEach(element => {
+                console.log(element.innerText)
+                element.innerText = new Date(element.innerText)
+            });
+        }
     </script>
     <%- include('./template/component/navbar.ejs') %>
     <div style="background-image: url('/image/MainBack.png');height:max(85vh,1000px);display:flex;background-size: cover; justify-content: space-around;">
