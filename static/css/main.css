@@ -107,6 +107,8 @@
 }
 .desc-context{
     resize: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 .change-form{
     display: flex;
@@ -119,4 +121,8 @@ width:100%;
 .recommend_user{
     display: flex;
     justify-content: space-around;
+}
+.user-desc{
+    height: 200px;
+    text-overflow:clip;
 }

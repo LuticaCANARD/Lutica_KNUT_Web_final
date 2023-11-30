@@ -24,7 +24,19 @@
             <% } %>
         </div>
         <h5 class="card-title"><%= user.nickname %></h5>
-        <p class="card-text"><%= user.mainDesc %></p>
+        <div class=" user-desc">
+        <p class="card-text" style="display: block;  
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        white-space: normal;
+        word-wrap: break-word;
+        height: 100%;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 8 ;
+        -webkit-box-orient: vertical;
+        "><%= user.mainDesc %></p>
+        </div>
         <a href="/page/<%= user.id %>" class="btn btn-primary">Go to Page</a>
     </div>
   </div>
