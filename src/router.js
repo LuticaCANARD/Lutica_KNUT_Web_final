@@ -8,7 +8,8 @@ import { loadMyPage,loadUserPage,loadSetting } from "./controller/Post/loadPage.
 import { searchingPeopleRouter } from "./controller/searching.js";
 import { changeProfile } from "./controller/Member/social.js";
 import socialRouter from './controller/Member/social.js';
-import { loadPost } from "./controller/Post/posts.js";
+import { loadPost,uploadPost } from "./controller/Post/posts.js";
+import { posterUploader } from "./utils/multerUploader.js";
 
 
 const appRouter = Router();
@@ -23,10 +24,11 @@ appRouter.use('/social',socialRouter);
 appRouter.get('/myPage',isLoginState,loadMyPage);
 appRouter.post('/changeProfile',isLoginState,changeProfile);
 appRouter.get('/write',displayWritePage);
-appRouter.get('/writebyfile',displayWritePage);
+appRouter.get('/writebyfile',displayFileWritePage);
 appRouter.get('/setting',isLoginState,loadSetting);
 appRouter.get('/search',searchingPeopleRouter);
 appRouter.get('/page/:userId',loadUserPage);
 appRouter.get('/post/:postId',loadPost);
+appRouter.post('/post/upload',isLoginState,posterUploader.single('post'),uploadPost);
 
 export default appRouter;
