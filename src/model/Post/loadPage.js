@@ -29,8 +29,8 @@ export const loadSocialPage = async(userId,offset,size) =>{
  * @param {Array<number>} postId 
  * @returns 
  */
-export const loadPictureList=async(postId) => {
-	const ret = await db.query("SELECT A.postId, B.name,B.path FROM PostPicture AS A INNER JOIN Picture AS B ON A.pictureId = B.id WHERE A.postId IN (?) ORDER BY B.id",[postId]);
+export const loadPictureList = async(postId) => {
+	const ret = await db.query("SELECT postId,path FROM PostPicture WHERE postId IN (?) ORDER BY postId",[postId]);
 	const p = {};
 	ret[0].map(a=>{
 		if(!p[a["postId"]]) p[a["postId"]] = [];

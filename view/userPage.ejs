@@ -9,7 +9,9 @@
         }
         function undoFollowing(){
             location.href="/social/unfollowing/<%= info.id %>"
-
+        }        
+        function gotoPost(id){
+            location.href='/post/'+id
         }
     </script>
     <div style="width: 100%;">
@@ -69,8 +71,15 @@
                         <%= info.mainDesc %>
                     </div>
                     <HR/>
-                    <div>
-                        "posts"
+                    <div style="display: flex;">
+                        <div style="
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-around;">
+                            <% for(let c=0;c<posts.length;c++){%>
+                                <%- include('./template/component/post.ejs',{post:posts[c],postPic}) %>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             </div>

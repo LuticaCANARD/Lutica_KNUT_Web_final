@@ -48,7 +48,6 @@ model User {
   passwordErrorCount Int            @default(0)
   posts              Post[]
   schedule           UserSchedule[]
-  pictures           Picture[]
   mainDesc           String @db.Text// 설명
   mainProfilePicture        String?
   mainTitlePicture        String?
@@ -69,28 +68,15 @@ model Post {
   PostPicture PostPicture[]
   @@index([userId])
 }
-
-model Picture {
-  // 유저의 슬라이드.
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(references: [id], fields: [userId])
-  userId    Int // 작성자ID
-  createdAt DateTime @default(now())
-  name      String
-  path      String
-
-  PostPicture PostPicture[]
-
-  @@index([userId])
-}
-
 // Picture와 Post의 연결관계를 만듬.
 model PostPicture {
   id        Int   @id @default(autoincrement())
   post      Post?    @relation(references: [id], fields: [postId])
-  picture   Picture? @relation(references: [id], fields: [pictureId])
+  userId    Int // 작성자ID
   postId    Int?
   pictureId Int?
+  createdAt DateTime @default(now())
+  path      String
   @@index([postId]) // PostId를 LEFT로 해서 JOIN할경우 Key.
   @@index([pictureId])
 }

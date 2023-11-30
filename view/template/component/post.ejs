@@ -3,13 +3,11 @@
         <div class="row g-0">
             <% if(postPic[String(post.id)]){ %>
             <div class="col-md-4">
-                <% for(let j=0; j<postPic[String(post.id)].length ;j++) { %>
-            <%- include('./image.ejs',
+            <%- include('./img_tag.ejs',
             {
-                src:   postPic[String(post.id)][j].path  ,
-                classes:"post-photo",etc:false 
+                src:   postPic[String(post.id)][0].path  ,
+                classes:"post-photo",etc:"style=\"width: 100%;height: 100%;\"" 
             })%>
-            <% } %>
             </div>
             <% } %>
           <div class="col-md-8">

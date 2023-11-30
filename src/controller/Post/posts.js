@@ -29,6 +29,17 @@ export const uploadPost = async (req,res,next) =>{
 	const parsedText = DOMPurify.sanitize(_text);
 	const userId = req.session?.passport?.user;
 	fs.rmSync(`upload/${req.body["filename"]}`,{force: true});
-	const ret = await uploadPostModel(userId,req.body["title"]??'제목 없는 글',parsedText,obj);
+	const ret = await uploadPostModel(userId,req.body["title"]??'제목 없는 글',parsedText,obj,req.body["images"]);
 	res.redirect('/post/'+ret.insertId);
+};
+
+/**
+ * 
+ * @param {Error} err 
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {import("express").NextFunction} next 
+ */
+export const exceptionHandlerOnUpload = (err,req,res,next) =>{
+	res.redirect('/writebyfile');
 };

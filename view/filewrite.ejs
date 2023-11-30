@@ -22,6 +22,8 @@
                 <div class="desc-page">
                     <form action="post/upload" method="post" enctype="multipart/form-data" >
                         <div style="display: flex; flex-direction: column;">
+                            <label>제목</label>
+                            <input type="text" name="title" maxlength="100"/>
                             <label>본문 (markdown양식을 지원합니다!)</label>
                             <input type="file" name="post" accept=".txt,.md" required>
                             <label>첨부 사진</label>

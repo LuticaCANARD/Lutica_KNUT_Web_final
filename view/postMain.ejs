@@ -2,6 +2,11 @@
 <html>
 <%- include('./template/defaultHead.ejs') %>
     <body>
+        <script>
+            window.onload = ()=>{
+                document.post_time.innerText = new Date(document.post_time.innerText)
+            }
+        </script>
         <%- include('./template/component/navbar.ejs') %>
         <div class="main-wrapper">
             <div class="main-page">
@@ -31,6 +36,11 @@
                   </div>
                 </div>
             <% } %> 
+            <div class="post-meta">
+                <h1><%= post.meta.title %></h1>
+                <h2><%= post.meta.nickname %></h2>
+                <small id="post_time"><%= post.meta.createdAt.toUTCString() %></small>
+            </div>
             <%- post.context.context %>
             </div>
         </div>

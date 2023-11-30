@@ -107,19 +107,26 @@ export const posterUploader = multer({
 					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/posts/${path.basename(file.originalname,ext)+ String(count)+ext}`);
 				}
 			}
-			req.body["filename"] = `${req.session?.passport?.user}/posts/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+			const typeArray = file.mimetype.split('/');
+			if(typeArray[0]!='image')
+				req.body["filename"] = `${req.session?.passport?.user}/posts/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+			else {
+				if( !req.body["images"] ) req.body["images"] = [];
+				req.body["images"].push( `${req.session?.passport?.user}/posts/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			}
+
 
 			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
 		},
 	}),
-	fileFilter:(req, file,cb)=>{
-		const typeArray = file.mimetype.split('/');
-		const fileType = typeArray[0];
-		if (fileType != 'text'||fileType != 'md'){ 
-			req.fileValidationError ='txt/md만 업로드가능합니다.';
-			cb(null, false); 
-		}
-		cb(null,true);
-	},
+	// fileFilter:(req, file,cb)=>{
+	// 	const typeArray = file.mimetype.split('/');
+	// 	const fileType = typeArray[0];
+	// 	if (fileType != 'text'||fileType != 'md'){ 
+	// 		req.fileValidationError ='txt/md만 업로드가능합니다.';
+	// 		cb(null, false); 
+	// 	}
+	// 	cb(null,true);
+	// },
 	limits:{fileSize: 5*1024*1024}
 });

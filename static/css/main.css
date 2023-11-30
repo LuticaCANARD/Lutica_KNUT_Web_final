@@ -146,3 +146,9 @@ width:100%;
     object-fit: cover;
 
 }
+
+.post-meta{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
