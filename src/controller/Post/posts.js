@@ -14,6 +14,15 @@ export const loadPost = async (req,res,next) =>{
 	const post = await loadPostModel(id);
 	res.render('postMain.ejs',{post});
 };
+/**
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {import("express").NextFunction} next 
+ */
+export const uploadPostWrite = async (req,res,next) =>{
+	res.redirect('/writebyfile');
+};
 
 /**
  * 

@@ -4,6 +4,12 @@
         function gotoSetting(e){
             location.href="/setting"
         }
+        function checkImage(e){
+            if(e.files.length>5){
+                alert('사진은 5장 이상이어서는 안됩니다!')
+                e.value='';
+            }
+        }
     </script>
     <div style="width: 100%;">
 
@@ -14,7 +20,15 @@
         <div class="page-bottom-notop">
             <div class="main-desc">
                 <div class="desc-page">
-                    
+                    <form action="/post/write">
+                        <label>제목</label>
+                        <input type="text" name="title" maxlength="100"/>
+                        <label>본문 (markdown양식을 지원합니다!)</label>
+                        <textarea name="desc"></textarea>
+                        <label>첨부 사진</label>
+                        <input type="file" name="photo" accept="image/jpeg,image/png" onchange="checkImage(this);" multiple>
+                        <button class="btn btn-primary">업로드!</button>
+                    </form>
                 </div>
             </div>
         </div>
