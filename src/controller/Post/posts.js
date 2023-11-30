@@ -1,4 +1,4 @@
-import {uploadPostModel} from '../../model/Post/posts.js';
+import {uploadPostModel,loadPostModel} from '../../model/Post/posts.js';
 import fs from 'fs';
 /**
  * 
@@ -8,7 +8,7 @@ import fs from 'fs';
  */
 export const loadPost = async (req,res,next) =>{
 	const id = req.params.postId;
-	const post = {};
+	const post = await loadPostModel(id);
 	res.render('postMain.ejs',post);
 };
 

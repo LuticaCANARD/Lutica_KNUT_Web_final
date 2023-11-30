@@ -21,12 +21,15 @@ export const uploadPostModel = async (userid,title,text,etc,fileid) =>{
 	
 };
 
-export const loadPost = async (id) =>{
-	const ret = await db.query('SELECT * FROM Post WHERE id=?',[id]);
-	const mongoid = ObjectId(ret[0][0].desc);
+export const loadPostModel = async (id) =>{
+	const ret = await db.query('SELECT file,`desc`,location,A.createdAt,title,B.nickname FROM Post AS A INNER JOIN user AS B ON A.userId=B.id WHERE A.id=?',[id]);
+	const mongoid = new ObjectId(ret[0][0].desc);
 	await mongodb.connect();
-
+	const obj = await mongodb.db('parareal').collection('post').findOne({_id:mongoid});
 	await mongodb.close();
 
-	
+	return {
+		meta:ret[0][0],
+		context : obj
+	};
 };
