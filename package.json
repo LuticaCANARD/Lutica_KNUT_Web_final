@@ -6,7 +6,10 @@
   "scripts": {
     "test": "test",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "generate" : "prisma generate",
+    "db-push" : "prisma db push "
+
   },
   "type": "module",
   "author": "Lutica_canard",

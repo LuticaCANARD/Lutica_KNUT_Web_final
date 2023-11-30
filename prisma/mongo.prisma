@@ -1,0 +1,7 @@
+
+//DB컨택터.
+datasource db {
+  provider     = "mongodb"
+  url          = env("MONGODB_URL")
+  relationMode = "prisma"
+}
