@@ -21,7 +21,13 @@ export const loadPost = async (req,res,next) =>{
  * @param {import("express").NextFunction} next 
  */
 export const uploadPostWrite = async (req,res,next) =>{
-	res.redirect('/writebyfile');
+	const text = req.body["desc"];
+	const _text = parse(text);
+	const parsedText = DOMPurify.sanitize(_text);
+	const obj = JSON.parse(req.body["object"]??'{}');
+	const userId = req.session?.passport?.user;
+	const ret = await uploadPostModel(userId,req.body["title"]??'제목 없는 글',parsedText,obj,req.body["images"]);
+	res.redirect('/post/'+ret.insertId);
 };
 
 /**
