@@ -30,11 +30,15 @@ export const loadSocialPage = async(userId,offset,size) =>{
  * @returns 
  */
 export const loadPictureList = async(postId) => {
-	const ret = await db.query("SELECT postId,path FROM PostPicture WHERE postId IN (?) ORDER BY postId",[postId]);
-	const p = {};
-	ret[0].map(a=>{
-		if(!p[a["postId"]]) p[a["postId"]] = [];
-		p[a["postId"]].push(a);
-	}); // 포스터와 mapping.
-	return p;
+	if(postId.length>0){
+		const ret = await db.query("SELECT postId,path FROM PostPicture WHERE postId IN (?) ORDER BY postId",[postId]);
+		const p = {};
+		ret[0].map(a=>{
+			if(!p[a["postId"]]) p[a["postId"]] = [];
+			p[a["postId"]].push(a);
+		}); // 포스터와 mapping.
+		return p;
+	}
+	else return {};
+	
 };
