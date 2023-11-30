@@ -48,7 +48,20 @@
                 <% } %>
                 
                 </div>
+                <HR/>
+                <div class="desc-page-wrap">
+                    <form action="/changeProfile" method="POST" class="change-form">
+                        <div class="desc-page-title">
+                            <input type="text" value="<%= info.nickname %>" name="nick"/>
+                        </div>
+                        <hr>
+                        <textarea class="desc-context" name="desc"><%= info.mainDesc %></textarea>
+                        <button class="btn btn-primary"> 닉네임 및 프로필 설명 변경 </button>
+                    </form>
+                </div>
+                <HR/>
                 <button onclick="gotoHome()" class="btn btn-primary"> 돌아가기 </button>
+                <HR/>
 
                 <!-- 헤더 사진 설정 -->
                 <div class="change-field">
@@ -70,16 +83,6 @@
                             <button class="btn btn-primary">변경</button>
                         </form>
                     </div>
-                </div>
-                <div class="desc-page-wrap">
-                    <form action="/changeProfile" method="POST" class="change-form">
-                        <div class="desc-page-title">
-                            <input type="text" value="<%= info.nickname %>" name="nick"/>
-                        </div>
-                        <hr>
-                        <textarea class="desc-context" name="desc"><%= info.mainDesc %></textarea>
-                        <button class="btn btn-primary"> 닉네임 및 프로필 설명 변경 </button>
-                    </form>
                 </div>
             </div>
         </div>

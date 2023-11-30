@@ -49,7 +49,7 @@ model User {
   posts              Post[]
   schedule           UserSchedule[]
   pictures           Picture[]
-  mainDesc           String @default("")// 설명
+  mainDesc           String @db.Text// 설명
   mainProfilePicture        String?
   mainTitlePicture        String?
 

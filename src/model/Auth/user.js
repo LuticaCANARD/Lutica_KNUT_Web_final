@@ -52,7 +52,7 @@ export const tryUserLogin = async (id,hashedPassword) => {
  * @returns 성공시 True, 실패시 False를 return 합니다.
  */
 export const insertUserTable = async (loginId,email,hashedPassword,nick) => {
-	const res = await db.query("INSERT INTO user (loginId,password,email,nickname) VALUES (?,?,?,?) ",[loginId,hashedPassword,email,nick]);
+	const res = await db.query("INSERT INTO user (loginId,password,email,nickname,mainDesc) VALUES (?,?,?,?,'') ",[loginId,hashedPassword,email,nick]);
 	return res[0].affectedRows>0;
 };
 
