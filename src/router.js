@@ -8,6 +8,7 @@ import { loadMyPage,loadUserPage,loadSetting } from "./controller/Post/loadPage.
 import { searchingPeopleRouter } from "./controller/searching.js";
 import { changeProfile } from "./controller/Member/social.js";
 import socialRouter from './controller/Member/social.js';
+import { loadPost } from "./controller/Post/posts.js";
 
 
 const appRouter = Router();
@@ -26,5 +27,6 @@ appRouter.get('/writebyfile',displayWritePage);
 appRouter.get('/setting',isLoginState,loadSetting);
 appRouter.get('/search',searchingPeopleRouter);
 appRouter.get('/page/:userId',loadUserPage);
+appRouter.get('/post/:postId',loadPost);
 
 export default appRouter;

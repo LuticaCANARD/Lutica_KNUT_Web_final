@@ -52,7 +52,8 @@ model User {
   mainDesc           String @db.Text// 설명
   mainProfilePicture        String?
   mainTitlePicture        String?
-
+  @@index([id])
+  @@index([loginId,password])
   @@map("user")
 }
 
@@ -64,7 +65,6 @@ model Post {
   title       String
   file        String? // 받을수있는파일
   desc        String? // 글내용 -> mongo OID로 가자...
-  location    String? //서브정보
   createdAt   DateTime      @default(now())
   PostPicture PostPicture[]
   @@index([userId])
@@ -100,9 +100,7 @@ model UserSchedule {
   id       Int      @id @default(autoincrement())
   user     User     @relation(references: [id], fields: [userId])
   userId   Int // 작성자ID
-  file     String? // 받을수있는파일
-  desc     String? // 글내용
-  location String? //서브정보
+  postId   Int? // 연관 포스트 id.
   date     DateTime // 날짜
 
   @@index([userId])

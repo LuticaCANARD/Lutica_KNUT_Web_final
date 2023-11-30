@@ -11,10 +11,12 @@ export const displayMainPage = async (req,res,next) =>{
 		const myno =req.session?.passport?.user;
 		// 로그인 된 상태라면, 친구들의 게시글을 불러온다.
 		const posts = await loadSocialPage(myno,Number(req.query["page"])?Number(req.query["page"])*3:0,3);
-		const idList = [];
-		posts.map(po=>idList.push(po["id"]));
+		const idList = []; // 
+		posts.map(po=>{
+			if(po["file"]!=null)idList.push(po["id"]);
+		});
 		if(idList.length==0){
-			res.render('mypage.ejs',{col:req.session,posts});
+			res.render('mypage.ejs',{col:req.session,posts,postPic:{}});
 			return;
 		}
 		const postPic = await loadPictureList(idList);

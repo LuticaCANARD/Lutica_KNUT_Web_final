@@ -2,23 +2,30 @@
 <html>
 <%- include('./template/defaultHead.ejs') %>
 <body>
+    <script>
+        function gotoPost(id){
+            location.href='/post/'+id
+        }
+    </script>
     <%- include('./template/component/navbar.ejs') %>
     <div style="background-image: url('/image/MainBack.png');height:max(85vh,1000px);display:flex;background-size: cover; justify-content: space-around;">
         <div class="main-desc">
             <div class="desc-page" style="width: 100%;">
             <% if(locals.posts){ %>
-                <h1> 최근  친구들의 포스트 </h1>
+                <h1> 최근 친구들의 포스트 </h1>
                 <HR>
                 <% if(posts.length==0){ %>
                     <h1>최근 게시글이 없습니다...</h1>
                 <% } else { %>
                     <% for (let i=0;i<posts.length;i++){%>
-                        <% include('./template/postMini.ejs',{post:posts[i]}) %>
+                        <%- include('./template/component/post.ejs',{post:posts[i],postPic}) %>
                     <% } %>    
                 <% } %>
             <% } %>
             </div>
         </div>
     </div>
+    <%- include('./template/component/footer.ejs') %>
+
 </body>
 </html>
