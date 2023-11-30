@@ -126,3 +126,23 @@ width:100%;
     height: 200px;
     text-overflow:clip;
 }
+.main-wrapper{
+    display: flex;
+    height: 100%;
+    justify-content: space-evenly;
+}
+.main-page{
+    width: 80%;
+    max-width: 1200px;
+    height: 100%;
+}
+.post-picture{
+    max-width: 1200px;
+    background-position-x: 50%;
+    background-position-y: 25%;
+    background-repeat: repeat-y;
+    background-size:contain;
+    max-height: 600px;
+    object-fit: cover;
+
+}

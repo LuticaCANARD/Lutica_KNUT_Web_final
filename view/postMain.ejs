@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html>
 <%- include('./template/defaultHead.ejs') %>
-<body>
-    <%- include('./template/component/navbar.ejs') %>
+    <body>
+        <%- include('./template/component/navbar.ejs') %>
+        <div class="main-wrapper">
+            <div class="main-page">
+            <% if(post.fileinfo){%>
+                <div>
+                <div id="postCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <% for(let c=0;c<post.fileinfo.length;c++){ %>
+                        <div class="carousel-item <%= c==0?'active':'' %>">
+                            <%- include('./template/component/img_tag.ejs',
+                            {
+                                src: post.fileinfo[c].path ,
+                                classes:"post-picture d-block w-100",etc:false 
+                            }) 
+                        %>
+                        </div>
+                        <% } %>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#postCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#postCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+            <% } %> 
+            <%- post.context.context %>
+            </div>
+        </div>
+        <%- include('./template/component/footer.ejs') %>
 
-
-</body>
+    </body>
 </html>
