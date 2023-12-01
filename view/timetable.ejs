@@ -1,0 +1,57 @@
+<%- include('./template/defaultHead.ejs') %>
+<body>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="/css/timetablejs.css">
+    <link rel="stylesheet" href="/css/timetable_apply.css">
+    <script src="/timetable.min.js"></script>
+    <script>
+            
+
+        window.onload = ()=>{
+            $('#demo').daterangepicker({
+            "minYear": 2023,
+            "startDate": '<%= (ret.start.toLocaleDateString("en-US") ?? new Date().toLocaleDateString("en-US") ) %>',
+            "endDate": '<%= (ret.end.toLocaleDateString("en-US") ?? new Date().toLocaleDateString("en-US") ) %>'
+            }, function(start, end, label) {
+                location.href = '/timetable?start='+start+'&end='+end+'&delta='+(new Date().getTimezoneOffset())
+            });
+        }
+        function gotoPost(id){
+            location.href='/post/'+id
+        }
+
+    </script>
+
+    <div style="width: 100%;">
+
+        <%- include('./template/component/navbar.ejs') %>
+        <div class="header">
+            <div class="none-background-header"></div>
+        </div>
+        <div class="page-bottom-notop">
+            <div class="main-desc">
+                <div class="desc-page">
+                    <div class="day-input">
+                        <div>
+                            <h3>날짜로 검색하기</h3>
+                            <p1>찾는 날짜 : </p1>
+                            <input id="demo">
+                        </div>
+                    </div>
+                    <div class="day-posts">
+                        <% for(let c=0;c<ret.posts.length;c++){ %>
+                        <%- include('./template/component/post.ejs',{post : ret.posts[c] , postPic:ret.postPic}) %>
+                        <% } %>
+                    </div>
+                    <HR>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./template/component/footer.ejs') %>
+
+</body>

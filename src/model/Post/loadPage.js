@@ -16,6 +16,10 @@ export const loadUserPosts = async(userId,offset,count) =>{
  * @param {string} userId 유저의 id입니다.
  */
 export const loadUserMain = async (userId,myid) =>{
+	if(!myid){
+		const userInfo = await db.query("SELECT id,nickname,mainDesc,mainTitlePicture,mainProfilePicture FROM user WHERE id=?",[userId]);
+		return userInfo[0][0];
+	}
 	const userInfo = await db.query("SELECT id,nickname,mainDesc,mainTitlePicture,mainProfilePicture,B.targetId FROM user AS A LEFT JOIN (SELECT * FROM Social WHERE followerId=?) AS B ON A.id=B.targetId WHERE id=?",[myid,userId]);
 	return userInfo[0][0];
 };

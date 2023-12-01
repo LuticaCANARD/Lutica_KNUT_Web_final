@@ -2,7 +2,11 @@ import { db,db_common } from '../utils/mysqldb.js';
 
 
 export const searchingPeople = async(usernick,me) =>{
-	const ret =  await db.query('SELECT mainDesc,nickname,mainProfilePicture,mainTitlePicture,id FROM user WHERE nickname LIKE ? AND id!= ? ',['%'+usernick+'%',me,me]);
+	if(!me){
+		const ret = await db.query('SELECT mainDesc,nickname,mainProfilePicture,mainTitlePicture,id FROM user WHERE nickname LIKE ?',['%'+usernick+'%']);
+		return ret[0];
+	}
+	const ret =  await db.query('SELECT mainDesc,nickname,mainProfilePicture,mainTitlePicture,id FROM user WHERE nickname LIKE ? AND id!= ? ',['%'+usernick+'%',me]);
 	return ret[0];
 };
 

@@ -4,7 +4,8 @@
     <body>
         <script>
             window.onload = ()=>{
-                document.post_time.innerText = new Date(document.post_time.innerText)
+                let dbTime = new Date(document.getElementById('post_time').innerText)
+                document.getElementById('post_time').innerText = new Date(dbTime.setTime(dbTime.getTime()-new Date().getTimezoneOffset()*60*1000))
             }
         </script>
         <%- include('./template/component/navbar.ejs') %>
@@ -39,7 +40,7 @@
             <div class="post-meta">
                 <h1><%= post.meta.title %></h1>
                 <h2><%= post.meta.nickname %></h2>
-                <small id="post_time"><%= post.meta.createdAt.toUTCString() %></small>
+                <small id="post_time"><%= post.meta.createdAt %></small>
             </div>
             <%- post.context.context %>
             </div>

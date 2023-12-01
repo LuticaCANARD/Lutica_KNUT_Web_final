@@ -1,0 +1,78 @@
+<%- include('./template/defaultHead.ejs') %>
+<body>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="/css/timetablejs.css">
+    <link rel="stylesheet" href="/css/timetable_apply.css">
+    <script src="/timetable.min.js"></script>
+    <script>
+        let timetable = new Timetable();
+
+            timetable.addLocations([
+                <% for(let v=0;v<ret.meta.length;v++){%>
+                    "<%= ret.meta[v] %>",
+                <%}%>
+            ]);
+            timetable.setScope(0, 23);
+            <% for(let c=0;c<ret.posts.length;c++){ %>
+            {
+                let options = {
+                url: '/post/<%-ret.posts[c].id %>', // makes the event clickable
+                class: 'vip', // additional css class
+                data: { // each property will be added to the data-* attributes of the DOM node for this event
+                    id: 4,
+                    ticketType: 'VIP'
+                },
+                onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
+                };
+                //new Date(year, monthIndex, day, hours, minutes, seconds);
+
+                let me = new Date(<%- ret.posts[c].createdAt.setTime(ret.posts[c].createdAt.getTime()-ret.posts[c].createdAt.getTimezoneOffset()*60*1000)%>)
+                timetable.addEvent('<%= ret.posts[c].title %>', 
+                '<%= ret.posts[c].nickname %>', 
+                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours(),me.getUTCMinutes()),
+                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()+1,me.getUTCMinutes()))
+            }
+            <% } %>
+        window.onload = ()=>{
+            document.getElementById('timedelta').value = (new Date()).getTimezoneOffset();
+            const renderer = new Timetable.Renderer(timetable);
+            renderer.draw('.timetable'); // any css selector
+        }
+
+        function gotoPost(id){
+            location.href='/post/'+id
+        }
+
+    </script>
+
+    <div style="width: 100%;">
+
+        <%- include('./template/component/navbar.ejs') %>
+        <div class="header">
+            <div class="none-background-header"></div>
+        </div>
+        <div class="page-bottom-notop">
+            <div class="main-desc">
+                <div class="desc-page">
+                    <div class="day-input">
+                        <p1>찾는 날짜 : </p1>
+                        <form action="/datestat">
+                            <input type="date" name="date">
+                            <input type="hidden" name="delta" id="timedelta">
+                            <button> 검색하기 ! </button>
+                        </form>
+                    </div>
+                    <HR>
+                    <h1> 게시글 동향! </h1>
+                    <div class="timetable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./template/component/footer.ejs') %>
+
+</body>

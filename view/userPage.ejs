@@ -54,7 +54,7 @@
                             <button class="btn btn-primary" onclick ="gotoSetting()">
                                 Setting...
                             </button>
-                        <% } else { %>
+                        <% } else if(myId) { %>
                             <% if(!info.targetId){%>
                             <button class="btn btn-primary " onclick ="doFollowing()">
                                 Follow

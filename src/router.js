@@ -10,6 +10,7 @@ import { changeProfile } from "./controller/Member/social.js";
 import socialRouter from './controller/Member/social.js';
 import { loadPost,uploadPost,exceptionHandlerOnUpload,uploadPostWrite } from "./controller/Post/posts.js";
 import { posterUploader } from "./utils/multerUploader.js";
+import { loadTimeTableMap,loadTimeStat } from './controller/timetable.js';
 
 
 const appRouter = Router();
@@ -29,6 +30,8 @@ appRouter.get('/setting',isLoginState,loadSetting);
 appRouter.get('/search',searchingPeopleRouter);
 appRouter.get('/page/:userId',loadUserPage);
 appRouter.get('/post/:postId',loadPost);
+appRouter.get('/timetable',loadTimeTableMap);
+appRouter.get('/datestat',loadTimeStat);
 appRouter.post('/post/upload',isLoginState,posterUploader.fields([{name:'post'},{name:'photo'}]),uploadPost,exceptionHandlerOnUpload);
 appRouter.post('/post/write',isLoginState,posterUploader.fields([{name:'photo'}]),uploadPostWrite,exceptionHandlerOnUpload);
 

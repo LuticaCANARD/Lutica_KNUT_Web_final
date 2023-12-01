@@ -25,16 +25,19 @@ export const loadMyPage = async(req,res,next) =>{
 */
 export const loadUserPage = async(req,res,next) =>{
 	const idPass = req.params.userId;
-	const myId = req.session.passport.user;
+	const myId = req?.session?.passport?.user;
 	const posts = await loadUserPosts(idPass,0,10);
 	const posts_ids = [];
-	posts.map(id=>{posts_ids.push(id['id']);});
+	posts.map(id=>{
+		posts_ids.push(id['id']);
+	});
 	const postPic  = await loadPictureList(posts_ids);
 	const info = await loadUserMain(idPass,myId);
 	res.render('userPage.ejs',{
 		info,
 		posts,postPic,
-		mypage : idPass===req.session?.passport?.user // 내 id를 불러왔을떄 내 page를 불러오는 것과 동일하게 하고 끝낸다.
+		mypage : idPass===req.session?.passport?.user, // 내 id를 불러왔을떄 내 page를 불러오는 것과 동일하게 하고 끝낸다.
+		myId
 	});
 };
 /**
