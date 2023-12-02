@@ -34,7 +34,9 @@
                 timetable.addEvent('<%= ret.posts[c].title %>', 
                 '<%= ret.posts[c].nickname %>', 
                 new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()-(me.getTimezoneOffset()/60),me.getUTCMinutes()),
-                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()-(me.getTimezoneOffset()/60)+1,me.getUTCMinutes()-(me.getTimezoneOffset()%60)))
+                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()-(me.getTimezoneOffset()/60)+1,me.getUTCMinutes()-(me.getTimezoneOffset()%60)),
+                '/post/<%-ret.posts[c].id %>'
+                )
             }
             <% } %>
         window.onload = ()=>{
