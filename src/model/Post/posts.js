@@ -22,16 +22,16 @@ export const uploadPostModel = async (userid,title,text,etc,files) =>{
 		const ret = await db.query("INSERT INTO Post (userId,title,file,`desc`) VALUES (?,?,?,?)",[userid,title,v,mongoid.insertedId.toString()]);
 		const id = ret[0].insertId;
 		if(files?.length>0){
+			const b = [];
 			files.forEach(async element => {
-				await db.query('INSERT INTO PostPicture (userId,postId,path) VALUES (?,?,?)',[userid,id,element]).then();
+				b.push([userid,id,element]);
 			});
+			await db.query('INSERT INTO PostPicture (userId,postId,path) VALUES ?',[b]);
 		}
 		return ret[0];
 	} catch (e){
 		return e;
 	}
-	
-	
 };
 
 export const loadPostModel = async (id) =>{

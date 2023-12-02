@@ -33,8 +33,8 @@
                 let me = new Date(<%- ret.posts[c].createdAt.setTime(ret.posts[c].createdAt.getTime()-ret.posts[c].createdAt.getTimezoneOffset()*60*1000)%>)
                 timetable.addEvent('<%= ret.posts[c].title %>', 
                 '<%= ret.posts[c].nickname %>', 
-                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours(),me.getUTCMinutes()),
-                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()+1,me.getUTCMinutes()))
+                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()-(me.getTimezoneOffset()/60),me.getUTCMinutes()),
+                new Date(me.getUTCFullYear(),me.getUTCMonth(),me.getUTCDate(),me.getUTCHours()-(me.getTimezoneOffset()/60)+1,me.getUTCMinutes()-(me.getTimezoneOffset()%60)))
             }
             <% } %>
         window.onload = ()=>{
