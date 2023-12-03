@@ -24,7 +24,7 @@ export const getUserEmailIsAlreadyExists = async (email) =>{
 
 
 /**
- * id,pw가 동일한 유저가 있는지 찾아서 있으면 유저의 객체를, 없으면 -1을 돌려줍니다.
+ * id,pw가 동일한 유저가 있는지 찾아서 있으면 유저의 객체를, 없으면 false를  돌려줍니다.
  * 유저의 객체는, User 테이블의 모든 행과 값이 동일합니다. 
  * 또한, 유저가 로그인에 성공하면, passwordErrorCount는 0으로 초기화됩니다. (객체의 passwordErrorCount는 초기화 이전 값.)
  * @param {string} id 유저에게서 받은 ID

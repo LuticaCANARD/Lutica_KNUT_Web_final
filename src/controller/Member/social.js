@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {db} from '../../utils/mysqldb.js';
 import { setFollow,deleteFollow } from '../../model/Member/social.js';
+import { isLoginState } from '../../middleware/Auth/loginState.js';
 /**
 * 
 * @param {Request} req 
@@ -42,6 +43,6 @@ export const unFollowingUser = async(req,res,next) =>{
 };
 
 const socialRouter = Router();
-socialRouter.get('/following/:id',followingUser);
-socialRouter.get('/unfollowing/:id',unFollowingUser);
+socialRouter.get('/following/:id',isLoginState,followingUser);
+socialRouter.get('/unfollowing/:id',isLoginState,unFollowingUser);
 export default socialRouter;
