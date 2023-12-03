@@ -13,8 +13,9 @@ export const loadTimeTableMap = async(req,res,next) =>{
 	startDate.setTime((!Number.isNaN(req.query.start) && req.query.start) ? req.query.start : startDate.getTime());
 	endDate.setTime((!Number.isNaN(req.query.end)  && req.query.end) ? req.query.end : endDate.getTime());
 	const delta = !Number.isNaN(req.query?.delta) && req.query?.delta ? req.query?.delta : 0; //DB와 지금의 차이.
-	startDate.setTime(startDate.getTime() - delta*1000*60);
-	endDate.setTime(endDate.getTime() - delta*60*1000);
+	startDate.setTime(startDate.getTime() - delta*60*1000 );
+	endDate.setTime(endDate.getTime()- delta*60*1000 - 24*60*60*1000);
+
 	const posts = await model.searchingPostByDate(startDate,endDate);
 	const posts_ids = [];
 	const meta_ = {};

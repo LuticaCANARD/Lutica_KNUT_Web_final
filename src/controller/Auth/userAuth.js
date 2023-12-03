@@ -56,7 +56,6 @@ const userRegister = async(req,res,next) =>{
 		return;
 	}
 	const pw = SHA256hashing(req.body["password"]);
-	console.log(pw);
 	const register_result = await model.insertUserTable(id,req.body["email"],pw,req.body["nickname"]);
 	if(!register_result) {
 		res.status(500);
