@@ -15,15 +15,17 @@ export const upload = multer({
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${file.originalname}`);
+			const replacedName = file.originalname.replace(' ','_');
+
+			let thereIsExits = fs.existsSync(`upload/${replacedName}`);
 			if ( thereIsExits === true ) {
 				while( thereIsExits === true ){
 					count++;
-					thereIsExits = fs.existsSync(`upload/${path.basename(file.originalname,ext)+ String(count)+ext}`);
+					thereIsExits = fs.existsSync(`upload/${path.basename(replacedName,ext)+ String(count)+ext}`);
 				}
 			}
-			req.body["filename"] = path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
-			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			req.body["filename"] = path.basename(replacedName,ext)+(count!=0 ? count : '')+ext;
+			done(null,path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 		}
 	}),
 	limits:{fileSize: 5*1000000*1024}
@@ -37,14 +39,16 @@ export const uploadPrivate = multer({
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${file.originalname}`);
+			const replacedName = file.originalname.replace(' ','_');
+
+			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${replacedName}`);
 			if ( thereIsExits === true ) {
 				while( thereIsExits === true ){
 					count++;
-					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${path.basename(file.originalname,ext)+ String(count)+ext}`);
+					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/${path.basename(replacedName,ext)+ String(count)+ext}`);
 				}
 			}
-			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			done(null,path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 		}
 	}),
 	limits:{fileSize: 5*1024*1024}
@@ -61,9 +65,11 @@ export const uploadProfile = multer({
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			req.body["filename"] = `${req.session?.passport?.user}/profile/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+			const replacedName = file.originalname.replace(' ','_');
 
-			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			req.body["filename"] = `${req.session?.passport?.user}/profile/`+path.basename(replacedName,ext)+(count!=0 ? count : '')+ext;
+
+			done(null,path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 		}
 	}),
 	limits:{fileSize: 5*1024*1024}
@@ -80,10 +86,11 @@ export const uploadHeader = multer({
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
+			const replacedName = file.originalname.replace(' ','_');
 
-			req.body["filename"] = `${req.session?.passport?.user}/header/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+			req.body["filename"] = `${req.session?.passport?.user}/header/`+path.basename(replacedName,ext)+(count!=0 ? count : '')+ext;
 
-			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			done(null,path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 		},
 	}),
 	
@@ -100,23 +107,24 @@ export const posterUploader = multer({
 		filename(req,file,done){
 			let ext = path.extname(file.originalname);
 			let count = 0;
-			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/posts/${file.originalname}`);
+			const replacedName = file.originalname.replace(' ','_');
+			let thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/posts/${replacedName}`);
 			if ( thereIsExits === true ) {
 				while( thereIsExits === true ){
 					count++;
-					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/posts/${path.basename(file.originalname,ext)+ String(count)+ext}`);
+					thereIsExits = fs.existsSync(`upload/${req.session?.passport?.user}/posts/${path.basename(replacedName,ext)+ String(count)+ext}`);
 				}
 			}
 			const typeArray = file.mimetype.split('/');
 			if(typeArray[0]!='image')
-				req.body["filename"] = `${req.session?.passport?.user}/posts/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext;
+				req.body["filename"] = `${req.session?.passport?.user}/posts/`+path.basename(replacedName,ext)+(count!=0 ? count : '')+ext;
 			else {
 				if( !req.body["images"] ) req.body["images"] = [];
-				req.body["images"].push( `${req.session?.passport?.user}/posts/`+path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+				req.body["images"].push( `${req.session?.passport?.user}/posts/`+path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 			}
 
 
-			done(null,path.basename(file.originalname,ext)+(count!=0 ? count : '')+ext);
+			done(null,path.basename(replacedName,ext)+(count!=0 ? count : '')+ext);
 		},
 	}),
 	// fileFilter:(req, file,cb)=>{
