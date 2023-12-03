@@ -21,13 +21,15 @@
             <div class="main-desc">
                 <div class="desc-page">
                     <form action="/post/write" method="POST">
-                        <label>제목</label>
-                        <input type="text" name="title" maxlength="100"/>
-                        <label>본문 (markdown양식을 지원합니다!)</label>
-                        <textarea name="desc"></textarea>
-                        <label>첨부 사진</label>
-                        <input type="file" name="photo" accept="image/jpeg,image/png" onchange="checkImage(this);" multiple>
-                        <button class="btn btn-primary">업로드!</button>
+                        <div style="display: flex; flex-direction: column;">
+                            <label>제목</label>
+                            <input type="text" name="title" maxlength="100"/>
+                            <label>본문 (markdown양식을 지원합니다!)</label>
+                            <textarea name="desc"></textarea>
+                            <label>첨부 사진</label>
+                            <input type="file" name="photo" accept="image/jpeg,image/png" onchange="checkImage(this);" multiple>
+                            <button class="btn btn-primary">업로드!</button>
+                        </div>
                     </form>
                 </div>
             </div>
