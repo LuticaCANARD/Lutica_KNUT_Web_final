@@ -35,7 +35,7 @@ export const uploadPostModel = async (userid,title,text,etc,files) =>{
 };
 
 export const loadPostModel = async (id) =>{
-	const ret = await db.query('SELECT file,`desc`,A.createdAt,title,B.nickname FROM Post AS A INNER JOIN user AS B ON A.userId=B.id WHERE A.id=?',[id]);
+	const ret = await db.query('SELECT file,`desc`,A.createdAt,title,B.nickname,B.id FROM Post AS A INNER JOIN user AS B ON A.userId=B.id WHERE A.id=?',[id]);
 	let fileinfo = {};
 	if(ret[0][0].file!=null) {
 		fileinfo = await db.query("SELECT path FROM PostPicture WHERE postId=?",[id]);
